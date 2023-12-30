@@ -16,9 +16,11 @@ def get_browser():
         chrome_service = ChromeService(executable_path='C:/WebDriver/bin/chromedriver.exe')
         driver = webdriver.Chrome(service=chrome_service)
         #driver.set_window_size(1920, 1080)
+        driver.maximize_window()
     else:
         firefox_service = FirefoxService(executable_path='C:/WebDriver/bin/geckodriver.exe')
         driver = webdriver.Firefox(service=firefox_service)
+        driver.maximize_window()
     yield driver
 
     # Закрываем драйвер по окончании использования

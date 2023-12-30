@@ -8,10 +8,10 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from helpers import _sleep
 from pages.base_page import BasePage
-from locators import LoginPageLocators, ForgotPasswordPageLocators
+from locators import LoginPageLocators, ForgotPasswordPageLocators, LOGIN_PAGE_URL
 
 
-LOGIN_PAGE_URL = 'https://stellarburgers.nomoreparties.site/login'  # URL для страницы авторизации
+#LOGIN_PAGE_URL = 'https://stellarburgers.nomoreparties.site/login'  # URL для страницы авторизации
 
 
 class LoginPage(BasePage):
@@ -35,7 +35,7 @@ class LoginPage(BasePage):
         #    expected_conditions.visibility_of_element_located(Locators.FORGOT_PAGE_LINK))
         #WebDriverWait(self.driver, 5).until(
         #    expected_conditions.element_to_be_clickable(Locators.FORGOT_PAGE_LINK))
-        _sleep(5)
+        #_to_sleep_ff(5)
         # Кликаем по ссылке "Восстановить пароль"
         self.click_element_by_locator(LoginPageLocators.FORGOT_PAGE_LINK)
         #self.click_element(element)

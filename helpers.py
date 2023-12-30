@@ -2,7 +2,7 @@ import time
 
 import pytest
 
-from data import _to_print, _to_sleep
+from data import _to_print, _to_sleep, _to_sleep_ff
 
 
 # Логирование - вывод в <stdout>
@@ -18,6 +18,11 @@ def _print_info(info_str):
 
 def _sleep(amount):
     if _to_sleep:
+        time.sleep(amount)
+
+
+def _sleep_ff(amount):
+    if _to_sleep_ff:
         time.sleep(amount)
 
 
