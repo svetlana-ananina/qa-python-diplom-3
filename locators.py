@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 
 FORGOT_PASSWORD_PAGE_URL = 'https://stellarburgers.nomoreparties.site/forgot-password'  # URL страницы восстановления пароля
 LOGIN_PAGE_URL           = 'https://stellarburgers.nomoreparties.site/login'            # URL для страницы авторизации
-RESET_PASSWORD_PAGE_URL = 'https://stellarburgers.nomoreparties.site/reset-password'    # URL страницы восстановления пароля
+RESET_PASSWORD_PAGE_URL  = 'https://stellarburgers.nomoreparties.site/reset-password'   # URL страницы восстановления пароля
 
 
 class LoginPageLocators:

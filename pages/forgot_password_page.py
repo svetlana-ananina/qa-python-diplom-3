@@ -6,23 +6,16 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from helpers import _sleep, _sleep_ff
 from pages.base_page import BasePage
-from locators import LoginPageLocators, ForgotPasswordPageLocators, FORGOT_PASSWORD_PAGE_URL
-
-#FORGOT_PASSWORD_PAGE_URL = 'https://stellarburgers.nomoreparties.site/forgot-password'  # URL страницы восстановления пароля
-FORGOT_PASSWORD_PAGE_TITLE = 'Восстановление пароля'                                    # Заголовок страницы восстановления пароля
+from locators import LoginPageLocators, ForgotPasswordPageLocators, FORGOT_PASSWORD_PAGE_URL, ResetPasswordPageLocators
+from tests.test_forgot_password_page import RECOVER_EMAIL
 
 
 class ForgotPasswordPage(BasePage):
 
-    @allure.step('Открываем страницу авторизации')
+    @allure.step('Открываем страницу восстановления пароля')
     def open_forgot_password_page(self):
         # Открываем страницу авторизации
         return self.open_page(FORGOT_PASSWORD_PAGE_URL)
-
-    @allure.step('Ждем загрузку страницы восстановления пароля')
-    def wait_for_load_forgot_password_page(self):
-        #self.wait_for_load_element(Locators.RECOVER_TITLE)
-        return self.wait_for_load_element(ForgotPasswordPageLocators.RECOVER_BUTTON)
 
     @allure.step('Ждем загрузку и кликаем ссылку "Восстановить пароль"')
     def scroll_to_click_email_field(self):
@@ -41,6 +34,31 @@ class ForgotPasswordPage(BasePage):
         self.click_element_by_locator_when_clickable(ForgotPasswordPageLocators.EMAIL_FIELD)
         #self.click_element(element)
 
+    @allure.step('Открываем страницу восстановления пароля, вводим почту и кликаем кнопку "Восстановить"')
+    def open_and_execute_forgot_password_page(self):
+
+        # открываем страницу восстановления пароля
+        self.open_forgot_password_page()
+        #_sleep(5)
+
+        # ждем загрузку страницы
+        self.wait_for_load_element(ForgotPasswordPageLocators.RECOVER_BUTTON)
+
+        # кликаем по полю "email"
+        # прокручиваем страницу до кнопки "Восстановить" и кликаем по полю "email"
+        self.scroll_to_click_email_field()
+        #_sleep(5)
+
+        # вводим email
+        self.set_value(ForgotPasswordPageLocators.EMAIL_FIELD, RECOVER_EMAIL)
+        #_sleep(5)
+
+        # кликаем кнопку "Восстановить"
+        self.click_element_by_locator_when_clickable(ForgotPasswordPageLocators.RECOVER_BUTTON)
+        #_sleep(5)
+
+        # ждем появления кнопки "Сохранить" на странице сброса пароля
+        self.wait_for_load_element(ResetPasswordPageLocators.SAVE_BUTTON)
 
 
 
