@@ -19,12 +19,12 @@ def _print_info(info_str):
         print(info_str)
 
 
-def _sleep(amount):
+def _sleep(amount=10):
     if _to_sleep:
         time.sleep(amount)
 
 
-def _sleep_ff(amount):
+def _sleep_ff(amount=10):
     if _to_sleep_ff:
         time.sleep(amount)
 

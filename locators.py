@@ -1,22 +1,29 @@
 from selenium.webdriver.common.by import By
 
 
-FORGOT_PASSWORD_PAGE_URL = 'https://stellarburgers.nomoreparties.site/forgot-password'  # URL страницы восстановления пароля
-LOGIN_PAGE_URL           = 'https://stellarburgers.nomoreparties.site/login'            # URL для страницы авторизации
-RESET_PASSWORD_PAGE_URL  = 'https://stellarburgers.nomoreparties.site/reset-password'   # URL страницы восстановления пароля
-MAIN_PAGE_URL            = 'https://stellarburgers.nomoreparties.site'                  # URL для Главной страницы
-PROFILE_PAGE_URL         = 'https://stellarburgers.nomoreparties.site/account/profile'  # URL для страницы Личный кабинет
-
-
 #RECOVER_EMAIL = 'ivanivanov@mail.ru'
 USER_EMAIL = 'ivanivanov@mail.ru'
 USER_PASSWORD = '123456'
 
 
+FORGOT_PASSWORD_PAGE_URL = 'https://stellarburgers.nomoreparties.site/forgot-password'  # URL страницы восстановления пароля
+LOGIN_PAGE_URL           = 'https://stellarburgers.nomoreparties.site/login'            # URL для страницы авторизации
+RESET_PASSWORD_PAGE_URL  = 'https://stellarburgers.nomoreparties.site/reset-password'   # URL страницы восстановления пароля
+MAIN_PAGE_URL            = 'https://stellarburgers.nomoreparties.site'                  # URL для Главной страницы
+PROFILE_PAGE_URL         = 'https://stellarburgers.nomoreparties.site/account/profile'  # URL для страницы Личный кабинет
+ORDER_HISTORY_URL        = 'https://stellarburgers.nomoreparties.site/account/order-history'  # URL для страницы Личный кабинет
+
+
 class MainPageLocators:
     ORDER_BUTTON = (By.XPATH, ".//button[text()='Оформить заказ']")         # Кнопка "Оформить заказ" на Главной странице
     PROFILE_LINK = (By.XPATH, ".//a[@href='/account']")                     # Ссылка Личный кабинет
+
+
+class ProfilePageLocators:
     SAVE_BUTTON = (By.XPATH, ".//button[text()='Сохранить']")               # Кнопка "Сохранить"
+    ORDER_HISTORY_LINK = (By.XPATH, ".//a[@href='/account/order-history']") # Ссылка История заказов
+    #ORDER_HISTORY_LINK = (By.XPATH, ".//a[text()='Профиль']") # Ссылка История заказов
+    ORDER_HISTORY_ACTIVE_TEXT = 'Account_link_active'                       # История заказов активна
 
 
 class LoginPageLocators:

@@ -10,6 +10,7 @@ class MainPage(BasePage):
     def open_main_page(self):
         # Открываем страницу авторизации
         self.open_page(MAIN_PAGE_URL)
+        self.wait_for_load_element(MainPageLocators.ORDER_BUTTON)
 
     @allure.step('Ждем загрузку и кликаем ссылку "Восстановить пароль"')
     def register_new_user(self):
