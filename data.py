@@ -35,3 +35,18 @@ class RESPONSE_KEYS:
     TOKEN_KEY       = 'token'           # logout: body, ="refreshToken"
     ACCESS_TOKEN_PREFIX = "Bearer "
 
+    #INGREDIENTS     = 'ingredients'
+    #ID_KEY          = '_id'
+    #DATA            = 'data'            # GET /api/ingredients: 'success': True, 'data': [{...}, ... ]
+
+    #TYPE_KEY        = 'type'            # тип ингредиента: "bun", "main", "sauce"
+    #TYPE_BUN        = 'bun'
+    #TYPE_MAIN       = 'main'            # основной ингредиент - начинка (filling)
+    #TYPE_SAUCE      = 'sauce'
+
+    #ORDER_KEY       = 'order'
+    #NUMBER_KEY      = 'number'
+    #ORDERS_KEY      = 'orders'
+    #TOTAL_KEY       = 'total'
+    #TOTAL_TODAY_KEY = 'totalToday'
+
