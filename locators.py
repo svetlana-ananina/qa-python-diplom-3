@@ -22,8 +22,9 @@ class MainPageLocators:
 class ProfilePageLocators:
     SAVE_BUTTON = (By.XPATH, ".//button[text()='Сохранить']")               # Кнопка "Сохранить"
     ORDER_HISTORY_LINK = (By.XPATH, ".//a[@href='/account/order-history']") # Ссылка История заказов
-    #ORDER_HISTORY_LINK = (By.XPATH, ".//a[text()='Профиль']") # Ссылка История заказов
+    #ORDER_HISTORY_LINK = (By.XPATH, ".//a[text()='Профиль']")              # Ссылка История заказов
     ORDER_HISTORY_ACTIVE_TEXT = 'Account_link_active'                       # История заказов активна
+    EXIT_BUTTON = (By.XPATH, ".//button[text()='Выход']")                   # Кнопка "Выход"
 
 
 class LoginPageLocators:

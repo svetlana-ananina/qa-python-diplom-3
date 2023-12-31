@@ -1,7 +1,8 @@
 import allure
 
 from helpers.common_helpers import _sleep, _sleep_ff
-from locators import MainPageLocators, PROFILE_PAGE_URL, ProfilePageLocators, ORDER_HISTORY_URL
+from locators import MainPageLocators, PROFILE_PAGE_URL, ProfilePageLocators, ORDER_HISTORY_URL, LoginPageLocators, \
+    LOGIN_PAGE_URL
 from pages.main_page import MainPage
 from pages.profile_page import ProfilePage
 
@@ -52,9 +53,34 @@ class TestProfilePage:
         #_sleep(5)
         # кликаем ссылку История заказов
         profile_page.click_order_history_link()
-        _sleep(5)
+        #_sleep(5)
         # Проверяем что раздел Истории заказов стал активным и текущий url это url Истории заказовS
         assert profile_page.order_history_is_active() and profile_page.get_current_url() == ORDER_HISTORY_URL
+
+
+    @allure.title('Проверяем переход по клику на «Личный кабинет»')
+    @allure.description('')
+    def test_exit_button(self, get_browser, create_new_user, login_new_user):
+        # регистрируем нового пользователя и открываем окно веб-браузер
+        driver, email, password = login_new_user
+
+        # открываем Главную страницу
+        self.open_profile_page_by_link(driver)
+        #_sleep(5)
+
+        # открываем Личный кабинет и ждем появления кнопки "Сохранить"
+        profile_page = ProfilePage(driver)
+        #_sleep(5)
+        # кликаем кнопку Выход
+        profile_page.click_exit_button()
+        #_sleep(5)
+
+        # ждем что произошел переход на страницу авторизации
+        profile_page.wait_for_load_element(LoginPageLocators.LOGIN_BUTTON)
+        #_sleep(5)
+
+        # Проверяем что текущий url это url страницы авторизации
+        assert profile_page.get_current_url() == LOGIN_PAGE_URL
 
 
 
