@@ -1,18 +1,9 @@
 import allure
-import pytest
-import time
 
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
-
-from helpers import _print_info, _sleep
-from pages.base_page import BasePage
 from pages.forgot_password_page import ForgotPasswordPage
 from pages.login_page import LoginPage
-from locators import LoginPageLocators, ForgotPasswordPageLocators, FORGOT_PASSWORD_PAGE_URL, ResetPasswordPageLocators, \
-    RESET_PASSWORD_PAGE_URL, RECOVER_EMAIL
+from locators import ForgotPasswordPageLocators, FORGOT_PASSWORD_PAGE_URL, RESET_PASSWORD_PAGE_URL, USER_EMAIL
 
-from data import _browser
 from pages.reset_password_page import ResetPasswordPage
 
 
@@ -50,7 +41,7 @@ class TestForgotPasswordPage:
         # создаем элемент POM для страницы сброса пароля
         forgot_password_page = ForgotPasswordPage(driver)
         # Открываем страницу восстановления пароля, вводим почту и кликаем кнопку "Восстановить"
-        forgot_password_page.open_and_execute_forgot_password_page(RECOVER_EMAIL)
+        forgot_password_page.open_and_execute_forgot_password_page(USER_EMAIL)
         #_sleep(5)
 
         # Проверяем что текущий url это url страницы сброса пароля
@@ -66,7 +57,7 @@ class TestForgotPasswordPage:
         forgot_password_page = ForgotPasswordPage(driver)
 
         # Открываем страницу восстановления пароля, вводим почту и кликаем кнопку "Восстановить"
-        forgot_password_page.open_and_execute_forgot_password_page(RECOVER_EMAIL)
+        forgot_password_page.open_and_execute_forgot_password_page(USER_EMAIL)
         #_sleep(5)
 
         # создаем элемент POM для страницы сброса пароля

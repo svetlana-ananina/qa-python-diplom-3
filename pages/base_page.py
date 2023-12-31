@@ -1,9 +1,8 @@
 import allure
-from selenium import webdriver
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
-from helpers import _print_info
+from helpers.common_helpers import _print_info
 
 
 class BasePage:

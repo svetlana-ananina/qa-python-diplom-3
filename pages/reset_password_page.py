@@ -1,10 +1,7 @@
 import allure
-from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
-from helpers import _sleep, _sleep_ff
 from pages.base_page import BasePage
 from locators import RESET_PASSWORD_PAGE_URL, ResetPasswordPageLocators
 
