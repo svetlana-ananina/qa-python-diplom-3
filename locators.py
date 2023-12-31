@@ -6,6 +6,9 @@ LOGIN_PAGE_URL           = 'https://stellarburgers.nomoreparties.site/login'    
 RESET_PASSWORD_PAGE_URL  = 'https://stellarburgers.nomoreparties.site/reset-password'   # URL страницы восстановления пароля
 
 
+RECOVER_EMAIL = 'ivanivanov@mail.ru'
+
+
 class LoginPageLocators:
     FORGOT_PAGE_LINK = (By.XPATH, ".//a[text()='Восстановить пароль']")         # Ссылка "Восстановить пароль" на странице авторизации
     LOGIN_BUTTON = (By.XPATH, ".//button[text()='Войти']")                      # Кнопка "Войти"
@@ -21,8 +24,13 @@ class ForgotPasswordPageLocators:
 
 class ResetPasswordPageLocators:
     SAVE_BUTTON = (By.XPATH, ".//button[text()='Сохранить']")               # Кнопка "Сохранить"
-    EYE_ICON    = (By.XPATH, ".//dev[@class='input__icon input__icon-action']")
+    #EYE_ICON    = (By.XPATH, ".//dev[@class='input__icon input__icon-action']")
+    EYE_ICON    = (By.XPATH, '//*[contains(@class,"input__icon")]')
     PASSWORD_PLACEHOLDER = (By.XPATH, ".//label[text()='Пароль']")          # Плейсхолдер поля "Пароль"
     #'input__placeholder text noselect text_type_main-default'
     #'focuced'
+    #FOCUSED_FIELD = (By.XPATH, '//*[contains(@class,"input__placeholder-focused")]')
+    FOCUSED_FIELD = (By.XPATH, '//*[contains(@class,"input__placeholder")]')
+    FOCUSED_TEXT = 'input__placeholder-focused'
+
 

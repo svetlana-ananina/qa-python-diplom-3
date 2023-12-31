@@ -6,8 +6,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from helpers import _sleep, _sleep_ff
 from pages.base_page import BasePage
-from locators import LoginPageLocators, ForgotPasswordPageLocators, FORGOT_PASSWORD_PAGE_URL, ResetPasswordPageLocators
-from tests.test_forgot_password_page import RECOVER_EMAIL
+from locators import ForgotPasswordPageLocators, FORGOT_PASSWORD_PAGE_URL, ResetPasswordPageLocators
 
 
 class ForgotPasswordPage(BasePage):
@@ -35,7 +34,7 @@ class ForgotPasswordPage(BasePage):
         #self.click_element(element)
 
     @allure.step('Открываем страницу восстановления пароля, вводим почту и кликаем кнопку "Восстановить"')
-    def open_and_execute_forgot_password_page(self):
+    def open_and_execute_forgot_password_page(self, email):
 
         # открываем страницу восстановления пароля
         self.open_forgot_password_page()
@@ -50,7 +49,7 @@ class ForgotPasswordPage(BasePage):
         #_sleep(5)
 
         # вводим email
-        self.set_value(ForgotPasswordPageLocators.EMAIL_FIELD, RECOVER_EMAIL)
+        self.set_value(ForgotPasswordPageLocators.EMAIL_FIELD, email)
         #_sleep(5)
 
         # кликаем кнопку "Восстановить"

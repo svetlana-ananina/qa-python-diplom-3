@@ -1,8 +1,8 @@
 _to_print = True
 #_to_print = False
 
-_browser = 'Chrome'
-#_browser = 'Firefoxe'
+#_browser = 'Chrome'
+_browser = 'Firefoxe'
 
 _to_sleep_ff = True
 
