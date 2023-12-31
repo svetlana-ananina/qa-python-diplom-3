@@ -1,6 +1,5 @@
 import allure
 
-from data import STATUS_CODES
 from helpers.common_helpers import _print_info
 from helpers.helpers_on_requests import request_on_get_ingredients
 
@@ -26,7 +25,7 @@ def __try_to_get_ingredients():
 @allure.step('Проверяем полученный ответ на запрос списка ингредиентов')
 def __get_ingredients_list(response):
     # проверяем что получен код ответа 200
-    assert response.status_code == STATUS_CODES.OK, f'Ошибка API: Ошибка получения списка ингредиентов\nполучено: "{response.text}"'
+    assert response.status_code == 200, f'Ошибка API: Ошибка получения списка ингредиентов\nполучено: "{response.text}"'
     # проверяем наличие в ответе ключа "data" и получаем его значение - список ингредиентов (словарь)
     ingredients = response.json()['data']           # GET /api/ingredients: 'success': True, 'data': [{...}, ... ]
     return ingredients

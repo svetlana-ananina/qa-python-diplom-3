@@ -7,7 +7,7 @@ import string
 import requests
 import allure
 
-from data import _to_print, _to_sleep, _to_sleep_ff, STATUS_CODES, RESPONSE_KEYS
+from data import _to_print, _to_sleep, _to_sleep_ff
 from helpers.common_helpers import _print_info
 from helpers.helpers_on_requests import request_on_create_user, request_on_delete_user
 
@@ -55,19 +55,6 @@ def generate_random_user_password():
     return generate_random_string(6)
 
 
-#@allure.step('Выполняем регистрацмю нового пользователя')
-#def register_new_user(email, password):
-#    pass
-
-
-# вспомогательный метод создания нового пользователя для других тестов
-#@allure.step('Проверяем код ответа')
-#def check_status_code(response, expected_code):
-#    # проверяем что получен код ответа expected_code
-#    received_code = response.status_code
-#    assert received_code == expected_code, f'Ошибка API: Неверный код в ответе, ожидался {expected_code}, получен "{received_code}"\nответ: "{response.text}"'
-
-
 # вспомогательный метод создания нового пользователя для других тестов
 @allure.step('Создаем нового пользователя')
 def create_user():
@@ -76,12 +63,11 @@ def create_user():
     # отправляем запрос на создание пользователя
     response = try_to_create_user(user_data)
     # проверяем что получен код ответа 200
-    #check_status_code(response, STATUS_CODES.OK)
-    assert response.status_code == STATUS_CODES.OK, f'Ошибка API: Ошибка регистрации нового пользователя\nuser_data={user_data}\nответ: "{response.text}"'
+    assert response.status_code == 200, f'Ошибка API: Ошибка регистрации нового пользователя\nuser_data={user_data}\nответ: "{response.text}"'
     # получаем токены пользователя
     received_body = response.json()
-    auth_token = received_body[RESPONSE_KEYS.ACCESS_TOKEN]
-    refresh_token = received_body[RESPONSE_KEYS.REFRESH_TOKEN]
+    auth_token = received_body['accessToken']
+    refresh_token = received_body['refreshToken']
     return auth_token, refresh_token
 
 
@@ -95,7 +81,7 @@ def try_to_create_user(user_data):
 @allure.step('Удаляем пользователя')
 def try_to_delete_user(auth_token):
     _print_info('\nУдаляем пользователя ...')
-    headers = {RESPONSE_KEYS.AUTH_TOKEN_KEY: auth_token}
+    headers = {'Authorization': auth_token}
     response = request_on_delete_user(headers)
     return response
 

@@ -73,7 +73,7 @@ def request_on_get_user_orders(headers=None):
 
 @allure.step('Отправляем API-запрос на создание заказа')
 def request_on_create_order(payload,  headers=None):
-    request_url = f'{SERVER_URL}{CREATE_ORDER}'
+    request_url = f'{__SERVER_URL}{__CREATE_ORDER}'
     _print_info(f'\nОтправляем запрос на создание заказа: POST url="{request_url}"\nheaders="{headers}"\njson="{payload}"')
     #if headers is not None:
     #    response = requests.post(f'{request_url}', headers=headers, json=payload)
@@ -86,7 +86,7 @@ def request_on_create_order(payload,  headers=None):
 
 @allure.step('Отправляем API-запрос на получение заказов пользователя')
 def request_on_get_user_orders(headers=None):
-    request_url = f'{SERVER_URL}{GET_USER_ORDERS}'
+    request_url = f'{__SERVER_URL}{__GET_USER_ORDERS}'
     _print_info(f'\nОтправляем запрос на получение заказов пользователя: GET url="{request_url}"\nheaders="{headers}"')
     response = requests.get(f'{request_url}', headers=headers)
     _print_response(response)
