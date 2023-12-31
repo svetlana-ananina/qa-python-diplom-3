@@ -13,6 +13,13 @@ class LoginPage(BasePage):
     def open_login_page(self):
         # Открываем страницу авторизации
         self.open_page(LOGIN_PAGE_URL)
+        #self.wait_for_load_element(LoginPageLocators.LOGIN_BUTTON)
+
+
+    @allure.step('Ждем загрузку страницы авторизации')
+    def wait_open_login_page(self):
+        # Открываем страницу авторизации
+        #self.open_page(LOGIN_PAGE_URL)
         self.wait_for_load_element(LoginPageLocators.LOGIN_BUTTON)
 
 

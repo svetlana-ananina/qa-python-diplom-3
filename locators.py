@@ -5,6 +5,7 @@ FORGOT_PASSWORD_PAGE_URL = 'https://stellarburgers.nomoreparties.site/forgot-pas
 LOGIN_PAGE_URL           = 'https://stellarburgers.nomoreparties.site/login'            # URL для страницы авторизации
 RESET_PASSWORD_PAGE_URL  = 'https://stellarburgers.nomoreparties.site/reset-password'   # URL страницы восстановления пароля
 MAIN_PAGE_URL            = 'https://stellarburgers.nomoreparties.site'                  # URL для Главной страницы
+PROFILE_PAGE_URL         = 'https://stellarburgers.nomoreparties.site/account/profile'  # URL для страницы Личный кабинет
 
 
 #RECOVER_EMAIL = 'ivanivanov@mail.ru'
@@ -14,6 +15,8 @@ USER_PASSWORD = '123456'
 
 class MainPageLocators:
     ORDER_BUTTON = (By.XPATH, ".//button[text()='Оформить заказ']")         # Кнопка "Оформить заказ" на Главной странице
+    PROFILE_LINK = (By.XPATH, ".//a[@href='/account']")                     # Ссылка Личный кабинет
+    SAVE_BUTTON = (By.XPATH, ".//button[text()='Сохранить']")               # Кнопка "Сохранить"
 
 
 class LoginPageLocators:

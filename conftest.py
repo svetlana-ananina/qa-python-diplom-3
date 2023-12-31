@@ -5,9 +5,11 @@ from selenium import webdriver
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.chrome.service import Service as ChromeService
 
-from helpers.common_helpers import _print_info
+from helpers.common_helpers import _print_info, _sleep_ff
 from data import _browser, STATUS_CODES, RESPONSE_KEYS
 from helpers.helpers_on_register_user import generate_random_user_data, try_to_create_user, try_to_delete_user
+from locators import MainPageLocators, MAIN_PAGE_URL
+from pages.login_page import LoginPage
 
 
 @pytest.fixture
@@ -60,7 +62,7 @@ def get_firefox_driver():
     driver.quit()
 
 
-# вспомогательный метод создания и удаления нового пользователя
+# вспомогательный метод создания и удаления нового пользователя с помощью API
 @allure.step('Создаем нового пользователя')
 @pytest.fixture
 def create_new_user():
@@ -81,3 +83,40 @@ def create_new_user():
 
     _print_info('conftest::create_new_user: Удаляем пользователя ...')
     try_to_delete_user(auth_token)
+
+
+@allure.step('Создаем нового пользователя')
+@pytest.fixture
+def _user():
+    _print_info('conftest::create_new_user: Регистрируем нового пользователя ...')
+
+@allure.title('')
+@allure.description('')
+@pytest.fixture
+def login_new_user(get_browser, create_new_user):
+    # регистрируем нового пользователя
+    user_data = create_new_user
+    email = user_data['email']
+    password = user_data['password']
+    _print_info(f'conftest::register_and_login_new_user: Авторизация нового пользователя\nuser_data = {user_data} ...')
+    # Открываем окно веб-браузер
+    driver = get_browser
+    # открываем страницу авторизации
+    login_page = LoginPage(driver)
+    login_page.open_login_page()
+    login_page.wait_open_login_page()
+    # _sleep(5)
+    # Вводим email и пароль
+    login_page.enter_user_data(email, password)
+    _sleep_ff(5)
+    # кликаем кнопку "Войти"
+    login_page.click_login_button()
+    # ждем появления кнопки "Оформить заказ" на Главной странице
+    login_page.wait_for_load_element(MainPageLocators.ORDER_BUTTON)
+    #_sleep(5)
+    # Проверяем что текущий url это url страницы восстановления пароля
+    # assert login_page.get_current_url() == MAIN_PAGE_URL
+    assert MAIN_PAGE_URL in login_page.get_current_url()
+
+    return driver, email, password
+
