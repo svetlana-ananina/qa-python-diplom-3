@@ -28,10 +28,8 @@ def create_order(ingredient_list, auth_token=None):
     # создаем заказ
     response = try_to_create_order(ingredient_list, auth_token)
     # проверяем что получен код ответа 200
-    #check_status_code(response, CODE.OK)
     assert response.status_code == 200, f'Ошибка API: Ошибка создания заказа\nполучено: "{response.text}"'
     # Получаем данные заказа - name, number
-    received_body = response.json()
     order_name = response.json()['name']                #KEYS.NAME_KEY)
     order_data = response.json()['order']               #check_key_in_body(received_body, KEYS.ORDER_KEY)
     order_number = order_data['number']                 #check_key_in_body(received_order_data, KEYS.NUMBER_KEY)
@@ -44,7 +42,7 @@ def try_to_get_user_orders(auth_token=None):
     _print_info('\nПолучаем заказы пользователя ...')
     if auth_token is not None:
         headers = {
-            'Authorization': auth_token,    #"Autorization": auth_token
+            'Authorization': auth_token,
         }
     else:
         headers = None

@@ -1,4 +1,5 @@
 import allure
+import pytest
 
 from helpers.common_helpers import _sleep, _sleep_ff
 from locators import MainPageLocators, PROFILE_PAGE_URL, ProfilePageLocators, ORDER_HISTORY_URL, LoginPageLocators, \

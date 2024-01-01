@@ -6,8 +6,7 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.chrome.service import Service as ChromeService
 
 from helpers.common_helpers import _print_info, _sleep_ff
-from data import _browser, STATUS_CODES, RESPONSE_KEYS
-from helpers.helpers_on_ingredients import try_to_get_ingredients
+from data import _browser, RESPONSE_KEYS
 from helpers.helpers_on_register_user import generate_random_user_data, try_to_create_user, try_to_delete_user
 from locators import MainPageLocators, MAIN_PAGE_URL
 from pages.login_page import LoginPage
@@ -74,7 +73,7 @@ def create_new_user():
     response = try_to_create_user(user_data)
     # проверяем что получен код ответа 200
     #check_status_code(response, STATUS_CODES.OK)
-    assert response.status_code == STATUS_CODES.OK, f'Ошибка API: Ошибка регистрации нового пользователя\nuser_data={user_data}\nответ: "{response.text}"'
+    assert response.status_code == 200, f'Ошибка API: Ошибка регистрации нового пользователя\nuser_data={user_data}\nответ: "{response.text}"'
     # получаем токены пользователя
     received_body = response.json()
     auth_token = received_body[RESPONSE_KEYS.ACCESS_TOKEN]

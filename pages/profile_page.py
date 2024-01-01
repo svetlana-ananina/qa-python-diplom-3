@@ -16,7 +16,6 @@ class ProfilePage(BasePage):
 
     @allure.step('Проверяем, что  становится активным')
     def order_history_is_active(self):
-        # Открываем страницу авторизации
         return WebDriverWait(self.driver, 10).until(
             expected_conditions.text_to_be_present_in_element_attribute(
                 ProfilePageLocators.ORDER_HISTORY_LINK, 'class', ProfilePageLocators.ORDER_HISTORY_ACTIVE_TEXT))     #.visibility_of_element_located(locator))
