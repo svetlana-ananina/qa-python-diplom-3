@@ -26,13 +26,17 @@ class MainPageLocators:
     ANY_BUTTON = (By.XPATH, ".//button")                                    # Кнопка "Оформить заказ"/"Войти в аккаунт" на Главной странице
 
     # Вкладка Конструктор:
-    INGREDIENT_LINK = (By.XPATH, '//*[contains(@href,"/ingredient/")]')
+    INGREDIENT_LINK = (By.XPATH, '//*[contains(@href,"/ingredient/")]')     # 1й ингредиент из 15 (булка)
     DETAILS_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal")]')
     DETAILS_OPENED_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_opened")]')
     #DETAILS_OPENED_TEXT = 'Modal-modal_opened'
     DETAILS_TITLE_LINK = (By.XPATH, ".//h2[text()='Детали ингредиента']")
     DETAILS_CLOSE_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_opened")]//button')
     DETAILS_LINK_CLASS = 'Modal_modal__P3_V5'
+    DRAGNDROP_BUN_TARGET = (By.XPATH, './/span[text()="Перетяните булочку сюда (верх)"]')
+
+    # Вкладка Лента заказов
+
 
 class ProfilePageLocators:
     SAVE_BUTTON = (By.XPATH, ".//button[text()='Сохранить']")               # Кнопка "Сохранить"

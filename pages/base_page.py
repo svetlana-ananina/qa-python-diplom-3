@@ -1,6 +1,7 @@
 import allure
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver import ActionChains
 
 from helpers.common_helpers import _print_info
 
@@ -121,4 +122,11 @@ class BasePage:
     def click_element(self, element):
         """ Кликаем элемент """
         element.click()
+
+    @allure.step('Перемещаем элемент')
+    def drag_and_drop(self, source, target):
+        """ Кликаем элемент """
+        action = ActionChains(self.driver)
+        action.drag_and_drop(source, target).perform()
+
 

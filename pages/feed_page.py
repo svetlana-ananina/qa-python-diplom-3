@@ -8,14 +8,11 @@ from locators import MAIN_PAGE_URL, MainPageLocators, FEED_PAGE_URL
 
 class FeedPage(BasePage):
 
-    @allure.step('Открываем Главную страницу')
-    def open_main_page(self):
-        self.open_page(MAIN_PAGE_URL)
-        #self.wait_for_load_element(MainPageLocators.ORDER_BUTTON)
-        self.wait_for_load_element(MainPageLocators.ANY_BUTTON)
+    @allure.step('кликаем на 1-й ингредиент')
+    def drag_and_drop_bun(self):
+        source = self.wait_for_load_element(MainPageLocators.INGREDIENT_LINK)
+        target = self.wait_for_load_element(MainPageLocators.DRAGNDROP_BUN_TARGET)
+        self.drag_and_drop(source, target)
+        # _sleep(5)
 
-    @allure.step('Открываем Ленту заказов')
-    def open_feed_page(self):
-        self.open_page(FEED_PAGE_URL)
-        self.wait_for_load_element(MainPageLocators.TOTAL_TODAY)
 
