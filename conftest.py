@@ -130,7 +130,7 @@ def create_new_user_by_api():
     try_to_delete_user(auth_token)
 
 
-@allure.step('Создаем нового пользователя с помощью API')
+@allure.step('Создаем и авторизуем нового пользователя с помощью API')
 @pytest.fixture
 def create_and_login_new_user_by_api(create_new_user_by_api):
     """
@@ -147,8 +147,8 @@ def create_and_login_new_user_by_api(create_new_user_by_api):
     # проверяем что получен код ответа 200
     assert response.status_code == 200, f'Ошибка API: Ошибка авторизации нового пользователя\nuser_data={user_data}\nответ: "{response.text}"'
 
-    return user_data
-    #return email, password
+    #return user_data
+    return email, password
 
 
 

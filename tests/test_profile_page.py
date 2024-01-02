@@ -28,7 +28,7 @@ class TestProfilePage:
 
     @allure.title('Проверяем переход по клику на «Личный кабинет»')
     @allure.description('')
-    def test_profile_link(self, get_browser, create_new_user, login_new_user):
+    def test_profile_link(self, get_browser, create_new_user_by_api, login_new_user):
         # регистрируем нового пользователя и открываем окно веб-браузер
         driver, email, password = login_new_user
         # открываем Главную страницу
@@ -41,7 +41,7 @@ class TestProfilePage:
 
     @allure.title('Проверяем переход по клику на «Личный кабинет»')
     @allure.description('')
-    def test_order_history_link(self, get_browser, create_new_user, login_new_user):
+    def test_order_history_link(self, get_browser, create_new_user_by_api, login_new_user):
         # регистрируем нового пользователя и открываем окно веб-браузер
         driver, email, password = login_new_user
 
@@ -61,7 +61,7 @@ class TestProfilePage:
 
     @allure.title('Проверяем переход по клику на «Личный кабинет»')
     @allure.description('')
-    def test_exit_button(self, get_browser, create_new_user, login_new_user):
+    def test_exit_button(self, get_browser, create_new_user_by_api, login_new_user):
         # регистрируем нового пользователя и открываем окно веб-браузер
         driver, email, password = login_new_user
 

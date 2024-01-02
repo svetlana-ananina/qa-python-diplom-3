@@ -96,9 +96,17 @@ class TestConstructorPage:
         #
         assert counter_after > counter_before
 
+
     @allure.title('Проверяем, что залогиненный пользователь может оформить заказ')
-    def test_order_checkout_by_user(self, get_browser):
-        pass
+    def test_order_checkout_by_user(self, get_browser, create_new_user_by_api, login_new_user):        # регистрируем нового пользователя и открываем окно веб-браузер
+        driver, email, password = login_new_user
+        # открываем Главную страницу
+        main_page = ConstructorPage(driver)
+        # Открываем Конструктор
+        main_page.open_main_page()
+        _sleep(5)
+        #
+
 
 
 
