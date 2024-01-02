@@ -1,5 +1,5 @@
 import allure
-from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 from pages.base_page import BasePage
@@ -22,6 +22,6 @@ class ResetPasswordPage(BasePage):
     def email_field_focused(self):
         # Открываем страницу авторизации
         return WebDriverWait(self.driver, 10).until(
-            expected_conditions.text_to_be_present_in_element_attribute(
+            EC.text_to_be_present_in_element_attribute(
                 ResetPasswordPageLocators.FOCUSED_FIELD, 'class', ResetPasswordPageLocators.FOCUSED_TEXT))     #.visibility_of_element_located(locator))
 

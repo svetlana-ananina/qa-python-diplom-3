@@ -23,7 +23,7 @@ class ForgotPasswordPage(BasePage):
 
         # Кликаем по полю "email"
         #WebDriverWait(self.driver, 5).until(
-        #    expected_conditions.element_to_be_clickable(ForgotPasswordPageLocators.EMAIL_FIELD))
+        #    EC_conditions.element_to_be_clickable(ForgotPasswordPageLocators.EMAIL_FIELD))
         _sleep_ff(5)
 
         self.click_element_by_locator_when_clickable(ForgotPasswordPageLocators.EMAIL_FIELD)

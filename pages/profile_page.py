@@ -1,5 +1,5 @@
 import allure
-from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 from locators import PROFILE_PAGE_URL, ProfilePageLocators
@@ -17,7 +17,7 @@ class ProfilePage(BasePage):
     @allure.step('Проверяем, что  становится активным')
     def order_history_is_active(self):
         return WebDriverWait(self.driver, 10).until(
-            expected_conditions.text_to_be_present_in_element_attribute(
+            EC.text_to_be_present_in_element_attribute(
                 ProfilePageLocators.ORDER_HISTORY_LINK, 'class', ProfilePageLocators.ORDER_HISTORY_ACTIVE_TEXT))     #.visibility_of_element_located(locator))
 
     @allure.step('кликаем кнопку "Выход"')

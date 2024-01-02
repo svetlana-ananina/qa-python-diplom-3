@@ -7,7 +7,7 @@ from pages.constructor_page import ConstructorPage
 from pages.main_page import MainPage
 
 
-class TestMainPage:
+class TestConstructorPage:
 
     @allure.title('Проверяем переход по клику на «Конструктор»')
     def test_open_constructor_by_link(self, get_browser):

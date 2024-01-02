@@ -1,5 +1,5 @@
 import allure
-from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 from helpers.common_helpers import _print_info
@@ -21,25 +21,25 @@ class BasePage:
     def wait_for_load_element(self, locator):
         """ Ждем загрузку элемента HTML по локатору {locator} """
         return WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_element_located(locator))
+            EC.visibility_of_element_located(locator))
 
     @allure.step('Ждем открытие страницы при переходе по ссылке URL')
     def wait_for_open_page(self, page_url):
         """ Ждем открытие страницы при переходе по ссылке: {self.page_url} """
         return WebDriverWait(self.driver, 10).until(
-                    expected_conditions.url_to_be(page_url))
+                    EC.url_to_be(page_url))
 
     @allure.step('Ждем загрузку всех элементов HTML по локатору')
     def wait_for_load_all_elements(self, locator):
         """ Ждем загрузку всех элементов HTML по локатору {locator} """
         return WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_all_elements_located(locator))
+            EC.visibility_of_all_elements_located(locator))
 
     @allure.step('Ждем появление в DOM элемента HTML по локатору')
     def wait_for_presence_of_element(self, locator):
         """ Ждем появление в DOM элемента HTML по локатору {locator} """
         return WebDriverWait(self.driver, 10).until(
-            expected_conditions.presence_of_element_located(locator))
+            EC.presence_of_element_located(locator))
 
     @allure.step('Получаем текущий URL')
     def get_current_url(self):
@@ -66,20 +66,20 @@ class BasePage:
     @allure.step('Ждем кликабельности элемента по локатору')
     def wait_for_clickable_element(self, locator):
         return WebDriverWait(self.driver, 10).until(
-            expected_conditions.element_to_be_clickable(locator))
+            EC.element_to_be_clickable(locator))
 
     @allure.step('Вводим текст в поле по локатору')
     def set_value(self, locator, value):
         """ Вводим текст в поле по локатору: {locator} """
         return WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_element_located(locator)).send_keys(value)
+            EC.visibility_of_element_located(locator)).send_keys(value)
         #self.driver.find_element(*locator).send_keys(value)
 
     @allure.step('Получаем значение поля по локатору')
     def check_value(self, locator):
         """ Получаем значение поля по локатору: {locator} """
         return WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_element_located(locator)).get_attribute("value")
+            EC.visibility_of_element_located(locator)).get_attribute("value")
         #return self.driver.find_element(*locator).get_attribute("value")
 
     @allure.step('Получаем текст в поле по локатору')
@@ -92,7 +92,7 @@ class BasePage:
         """ Прокручиваем страницу до элемента по локатору {locator} """
         #element = self.driver.find_element(*locator)
         element = WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_element_located(locator))
+            EC.visibility_of_element_located(locator))
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
         return element
 
@@ -106,14 +106,14 @@ class BasePage:
     def click_element_by_locator(self, locator):
         """ Ждем загрузку элемента HTML по локатору и кликаем """
         WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_element_located(locator)).click()
+            EC.visibility_of_element_located(locator)).click()
         #self.driver.find_element(*locator).click()
 
     @allure.step('Ждем кликабельности элемента по локатору и кликаем')
     def click_element_by_locator_when_clickable(self, locator):
         """ Ждем загрузку элемента HTML по локатору и кликаем """
         element = WebDriverWait(self.driver, 10).until(
-            expected_conditions.element_to_be_clickable(locator))
+            EC.element_to_be_clickable(locator))
         #self.driver.find_element(*locator).click()
         element.click()
 
