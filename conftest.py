@@ -7,10 +7,15 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 
 from helpers.common_helpers import _print_info, _sleep_ff
 from data import _browser, RESPONSE_KEYS
-from helpers.helpers_on_register_user import generate_random_user_data, try_to_create_user, try_to_delete_user
+from helpers.helpers_on_register_user import generate_random_user_data, try_to_create_user, try_to_delete_user, \
+    try_to_login_user
 from locators import MainPageLocators, MAIN_PAGE_URL
 from pages.login_page import LoginPage
 
+
+#
+# Функции для работы с WebDriver
+#
 
 @pytest.fixture
 def get_browser():
@@ -62,30 +67,7 @@ def get_firefox_driver():
     driver.quit()
 
 
-# вспомогательный метод создания и удаления нового пользователя с помощью API
-@allure.step('Создаем нового пользователя')
-@pytest.fixture
-def create_new_user():
-    _print_info('conftest::create_new_user: Регистрируем нового пользователя ...')
-    # генерируем уникальные данные нового пользователя
-    user_data = generate_random_user_data()
-    # отправляем запрос на создание пользователя
-    response = try_to_create_user(user_data)
-    # проверяем что получен код ответа 200
-    #check_status_code(response, STATUS_CODES.OK)
-    assert response.status_code == 200, f'Ошибка API: Ошибка регистрации нового пользователя\nuser_data={user_data}\nответ: "{response.text}"'
-    # получаем токены пользователя
-    received_body = response.json()
-    auth_token = received_body[RESPONSE_KEYS.ACCESS_TOKEN]
-    refresh_token = received_body[RESPONSE_KEYS.REFRESH_TOKEN]
-    #return auth_token, refresh_token
-    yield user_data
-
-    _print_info('conftest::create_new_user: Удаляем пользователя ...')
-    try_to_delete_user(auth_token)
-
-
-@allure.step('Создаем нового пользователя')
+@allure.step('Регистрируем нового пользователя')
 @pytest.fixture
 def _user():
     _print_info('conftest::create_new_user: Регистрируем нового пользователя ...')
@@ -93,9 +75,9 @@ def _user():
 @allure.title('')
 @allure.description('')
 @pytest.fixture
-def login_new_user(get_browser, create_new_user):
+def login_new_user(get_browser, create_new_user_by_api):
     # регистрируем нового пользователя
-    user_data = create_new_user
+    user_data = create_new_user_by_api
     email = user_data['email']
     password = user_data['password']
     _print_info(f'conftest::register_and_login_new_user: Авторизация нового пользователя\nuser_data = {user_data} ...')
@@ -121,4 +103,52 @@ def login_new_user(get_browser, create_new_user):
     return driver, email, password
 
 
-# Получаем данные об ингредиентах от API
+#
+# Функции для работы с API
+#
+@allure.step('Создаем нового пользователя с помощью API')
+@pytest.fixture
+def create_new_user_by_api():
+    """
+    Вспомогательный метод создания и удаления нового пользователя с помощью API
+    """
+    _print_info('conftest::create_new_user_API: Регистрируем нового пользователя ...')
+    # генерируем уникальные данные нового пользователя
+    user_data = generate_random_user_data()
+    # отправляем запрос на создание пользователя
+    response = try_to_create_user(user_data)
+    # проверяем что получен код ответа 200
+    assert response.status_code == 200, f'Ошибка API: Ошибка регистрации нового пользователя\nuser_data={user_data}\nответ: "{response.text}"'
+    # получаем токены пользователя
+    received_body = response.json()
+    auth_token = received_body[RESPONSE_KEYS.ACCESS_TOKEN]
+    refresh_token = received_body[RESPONSE_KEYS.REFRESH_TOKEN]
+    #return auth_token, refresh_token
+    yield user_data
+
+    _print_info('conftest::create_new_user_API: Удаляем пользователя ...')
+    try_to_delete_user(auth_token)
+
+
+@allure.step('Создаем нового пользователя с помощью API')
+@pytest.fixture
+def create_and_login_new_user_by_api(create_new_user_by_api):
+    """
+    Вспомогательный метод создания и удаления нового пользователя с помощью API
+    """
+    _print_info('conftest::create_and_login_new_user_by_api: Авторизуем нового пользователя ...')
+    # Создаем нового пользователя
+    user_data = create_new_user_by_api
+    email = user_data['email']
+    password = user_data['password']
+    # отправляем запрос на авторизацию пользователя
+    response = try_to_login_user(email, password)
+
+    # проверяем что получен код ответа 200
+    assert response.status_code == 200, f'Ошибка API: Ошибка авторизации нового пользователя\nuser_data={user_data}\nответ: "{response.text}"'
+
+    return user_data
+    #return email, password
+
+
+

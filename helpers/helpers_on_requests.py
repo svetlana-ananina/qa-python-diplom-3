@@ -35,6 +35,15 @@ def request_on_create_user(payload):
     return response
 
 
+@allure.step('Отправляем API-запрос на авторизацию пользователя')
+def request_on_login_user(payload):
+    request_url = f'{__SERVER_URL}{__API_LOGIN_USER}'
+    _print_info(f'\nОтправляем запрос на авторизацию пользователя: POST url="{request_url}"\njson="{payload}"')
+    response = requests.post(f'{request_url}', json=payload)
+    _print_response(response)
+    return response
+
+
 @allure.step('Отправляем API-запрос на удаление пользователя')
 def request_on_delete_user(headers):
     request_url = f'{__SERVER_URL}{__API_DELETE_USER}'

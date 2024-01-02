@@ -9,7 +9,7 @@ import allure
 
 from data import _to_print, _to_sleep, _to_sleep_ff
 from helpers.common_helpers import _print_info
-from helpers.helpers_on_requests import request_on_create_user, request_on_delete_user
+from helpers.helpers_on_requests import request_on_create_user, request_on_delete_user, request_on_login_user
 
 
 # Вспомогательные функции
@@ -83,5 +83,13 @@ def try_to_delete_user(auth_token):
     _print_info('\nУдаляем пользователя ...')
     headers = {'Authorization': auth_token}
     response = request_on_delete_user(headers)
+    return response
+
+
+@allure.step('Авторизация пользователя')
+def try_to_login_user(email, password):
+    _print_info('\nАвторизация пользователя ...')
+    payload = {'email': email, 'password': password}
+    response = request_on_login_user(payload)
     return response
 
