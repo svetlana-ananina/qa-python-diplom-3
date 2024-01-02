@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from helpers.common_helpers import _sleep
+from helpers.common_helpers import _sleep, _print_info, _sleep_ff
 from locators import MainPageLocators, MAIN_PAGE_URL, FEED_PAGE_URL
 from pages.constructor_page import ConstructorPage
 from pages.main_page import MainPage
@@ -86,30 +86,45 @@ class TestConstructorPage:
         # Открываем Конструктор
         main_page.open_main_page()
         #_sleep(3)
-        #
+        # получаем значение счетчика до
         counter_before = main_page.get_buns_counter()
         # Перемещаем булку в бургер
         main_page.drag_and_drop_bun()
-        #
+        # получаем значение счетчика после добавления ингредиента
         counter_after = main_page.get_buns_counter()
         _sleep(5)
-        #
+        # Проверяем, что счетчик ингредиента увеличивается
         assert counter_after > counter_before
 
 
     @allure.title('Проверяем, что залогиненный пользователь может оформить заказ')
-    def test_order_checkout_by_user(self, get_browser, create_new_user_by_api, login_new_user):        # регистрируем нового пользователя и открываем окно веб-браузер
+    def test_order_checkout_by_user(self, get_browser, create_new_user_by_api, login_new_user):
+        # регистрируем нового пользователя и открываем окно веб-браузера
         driver, email, password = login_new_user
+        #driver = get_browser
         # открываем Главную страницу
         main_page = ConstructorPage(driver)
         # Открываем Конструктор
         main_page.open_main_page()
-        _sleep(5)
+        #_sleep(5)
+        # Перемещаем булку в бургер
+        main_page.drag_and_drop_bun()
+        #_sleep(5)
+        # Добавляем соус в заказ
+        main_page.drag_and_drop_sauce()
+        #_sleep_ff(5)
+        #_sleep(5)
+        # Добавляем начинку в заказ
+        main_page.drag_and_drop_filling()
+        _sleep_ff(5)
+        #_sleep(5)
+        # кликаем кнопку Оформить заказ
+        _print_info('кликаем кнопку Оформить заказ ...')
+        main_page.click_order_button()
         #
-
-
-
-
+        #_sleep(5)
+        #
+        assert main_page.order_details_is_visible()
 
 
 

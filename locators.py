@@ -35,7 +35,25 @@ class MainPageLocators:
     DETAILS_LINK_CLASS = 'Modal_modal__P3_V5'
     DRAGNDROP_BUN_TARGET = (By.XPATH, './/span[text()="Перетяните булочку сюда (верх)"]')
     INGREDIENT_COUNTER_LINK = (By.XPATH, '//*[contains(@href,"/ingredient/")]//p[contains(@class,"counter_counter__num")]')     # счетчик ингредиента
+    INGREDIENT_3_LINK = (By.XPATH, '(//*[contains(@href,"/ingredient/")])[3]')     # 3й ингредиент из 15 (соус)
+    INGREDIENT_7_LINK = (By.XPATH, '(//*[contains(@href,"/ingredient/")])[7]')     # 7й ингредиент из 15 (начинка)
+    #DRAGNDROP_BURGER_TARGET = (By.XPATH, './/span[@class="constructor-element__row"]')      # 1й элемент бургера
+    #DRAGNDROP_BURGER_TARGET = (By.XPATH, '//*[contains(@class,"BurgerConstructor_basket")]')
+    DRAGNDROP_BURGER_TARGET = (By.XPATH, '//*[contains(@class,"BurgerConstructor_basket__list")]')
 
+    ORDER_ID_LINK = (By.XPATH, './/p[text()="Ваш заказ начали готовить"]')
+    ORDER_MODAL_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_")]')                    # common/hidden
+    #ORDER_MODAL_OPENED_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_opened__")]')     # visible
+    ORDER_MODAL_OPENED_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_opened__3ISw4")]')     # visible
+
+
+'Modal_modal_opened__3ISw4 Modal_modal__P3_V5'
+'Modal_modal__P3_V5'
+
+
+'Modal_modal__title_shadow__3ikwq Modal_modal__title__2L34m text text_type_digits-large mb-8'
+'идентификатор заказа'
+'Ваш заказ начали готовить'
 
     # Вкладка Лента заказов
 
