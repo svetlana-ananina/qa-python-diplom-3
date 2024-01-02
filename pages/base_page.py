@@ -86,7 +86,10 @@ class BasePage:
     @allure.step('Получаем текст в поле по локатору')
     def check_text(self, locator):
         """ Получаем текст в поле по локатору: {locator} """
-        return self.driver.find_element(*locator).text
+        #source = self.wait_for_load_element(locator)
+        #return source.text
+        #return self.driver.find_element(*locator).text
+        return (self.wait_for_load_element(locator)).text
 
     @allure.step('Прокручиваем страницу до элемента по локатору')
     def scroll_to_element_by_locator(self, locator):

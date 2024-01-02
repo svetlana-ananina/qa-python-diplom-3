@@ -34,6 +34,8 @@ class MainPageLocators:
     DETAILS_CLOSE_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_opened")]//button')
     DETAILS_LINK_CLASS = 'Modal_modal__P3_V5'
     DRAGNDROP_BUN_TARGET = (By.XPATH, './/span[text()="Перетяните булочку сюда (верх)"]')
+    INGREDIENT_COUNTER_LINK = (By.XPATH, '//*[contains(@href,"/ingredient/")]//p[contains(@class,"counter_counter__num")]')     # счетчик ингредиента
+
 
     # Вкладка Лента заказов
 

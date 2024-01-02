@@ -79,11 +79,22 @@ class TestConstructorPage:
         #
         assert element.get_attribute('class') == MainPageLocators.DETAILS_LINK_CLASS
 
-
     @allure.title('Проверяем, что при добавлении ингредиента в заказ счётчик этого ингридиента увеличивается')
     def test_append_ingredient_in_order(self, get_browser):
-        pass
-
+        driver = get_browser
+        main_page = ConstructorPage(driver)
+        # Открываем Конструктор
+        main_page.open_main_page()
+        #_sleep(3)
+        #
+        counter_before = main_page.get_buns_counter()
+        # Перемещаем булку в бургер
+        main_page.drag_and_drop_bun()
+        #
+        counter_after = main_page.get_buns_counter()
+        _sleep(5)
+        #
+        assert counter_after > counter_before
 
     @allure.title('Проверяем, что залогиненный пользователь может оформить заказ')
     def test_order_checkout_by_user(self, get_browser):
