@@ -3,6 +3,7 @@ import pytest
 
 from helpers.common_helpers import _sleep
 from locators import MainPageLocators, MAIN_PAGE_URL, FEED_PAGE_URL
+from pages.constructor_page import ConstructorPage
 from pages.main_page import MainPage
 
 
@@ -11,7 +12,7 @@ class TestMainPage:
     @allure.title('Проверяем переход по клику на «Конструктор»')
     def test_open_constructor_by_link(self, get_browser):
         driver = get_browser
-        main_page = MainPage(driver)
+        main_page = ConstructorPage(driver)
         # Открываем Ленту заказов
         main_page.open_feed_page()
         #_sleep(3)
@@ -30,7 +31,7 @@ class TestMainPage:
     @allure.title('Проверяем переход по клику на «Лента заказов»')
     def test_open_feed_by_link(self, get_browser):
         driver = get_browser
-        main_page = MainPage(driver)
+        main_page = ConstructorPage(driver)
         # Открываем Конструктор
         main_page.open_main_page()
         #_sleep(3)
@@ -46,7 +47,7 @@ class TestMainPage:
     @allure.title('Проверяем, что если кликнуть на ингредиент, появится всплывающее окно с деталями')
     def test_click_ingredient(self, get_browser):
         driver = get_browser
-        main_page = MainPage(driver)
+        main_page = ConstructorPage(driver)
         # Открываем Конструктор
         main_page.open_main_page()
         #_sleep(3)
@@ -60,17 +61,16 @@ class TestMainPage:
         assert main_page.details_title_is_visible()
 
     @allure.title('Проверяем, что всплывающее окно закрывается кликом по крестику')
-    def test_closes_ingredient(self, get_browser):
+    def test_closes_ingredient_details(self, get_browser):
         driver = get_browser
-        main_page = MainPage(driver)
+        main_page = ConstructorPage(driver)
         # Открываем Конструктор
         main_page.open_main_page()
         #_sleep(3)
         # кликаем на 1-й ингредиент
         main_page.click_ingredient_link()
-        # ждем, что открывается карточка деталей
+        # ждем, что открывается карточка деталей и получаем элемент с изменившимся классом: (By.XPATH, './/section[contains(@class,"Modal_modal_opened")]')
         element = main_page.ingredient_details_is_opened()
-        # возвращает элемент по локатору MainPageLocators.DETAILS_OPENED_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_opened")]')
         _sleep(3)
         # кликаем на крестик
         main_page.click_details_close_link()
@@ -78,6 +78,17 @@ class TestMainPage:
         main_page.ingredient_details_is_closed()
         #
         assert element.get_attribute('class') == MainPageLocators.DETAILS_LINK_CLASS
+
+
+    @allure.title('Проверяем, что при добавлении ингредиента в заказ счётчик этого ингридиента увеличивается')
+    def test_append_ingredient_in_order(self, get_browser):
+        pass
+
+
+    @allure.title('Проверяем, что залогиненный пользователь может оформить заказ')
+    def test_order_checkout_by_user(self, get_browser):
+        pass
+
 
 
 
