@@ -27,7 +27,7 @@ class MainPageLocators:
 
     # Вкладка Конструктор:
     INGREDIENT_LINK = (By.XPATH, '//*[contains(@href,"/ingredient/")]')     # 1й ингредиент из 15 (булка)
-    DETAILS_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal")]')
+#    DETAILS_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal")]')
     DETAILS_OPENED_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_opened")]')
     #DETAILS_OPENED_TEXT = 'Modal-modal_opened'
     DETAILS_TITLE_LINK = (By.XPATH, ".//h2[text()='Детали ингредиента']")
@@ -47,15 +47,10 @@ class MainPageLocators:
     ORDER_MODAL_OPENED_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_opened__3ISw4")]')     # visible
 
 
-'Modal_modal_opened__3ISw4 Modal_modal__P3_V5'
-'Modal_modal__P3_V5'
-
-
-'Modal_modal__title_shadow__3ikwq Modal_modal__title__2L34m text text_type_digits-large mb-8'
-'идентификатор заказа'
-'Ваш заказ начали готовить'
-
+class FeedPageLocators:
     # Вкладка Лента заказов
+    ORDER_LINK = (By.XPATH, '//*[contains(@href,"/feed/")]')
+    ORDER_DETAILS_OPENED_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_opened")]')
 
 
 class ProfilePageLocators:

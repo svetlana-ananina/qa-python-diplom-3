@@ -17,7 +17,8 @@ class ConstructorPage(MainPage):
 
     @allure.step('Проверяем, что открывается карточка деталей')
     def ingredient_details_is_opened(self):
-        return self.wait_for_presence_of_element(MainPageLocators.DETAILS_OPENED_LINK)
+        #return self.wait_for_presence_of_element(MainPageLocators.DETAILS_OPENED_LINK)
+        return self.wait_for_load_element(MainPageLocators.DETAILS_OPENED_LINK)
 
     @allure.step('Проверяем, что появился заголовок Детали ингредиента')
     def details_title_is_visible(self):
