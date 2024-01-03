@@ -91,7 +91,7 @@ class ConstructorPage(MainPage):
     @allure.step('Ждем видимости элемента по локатору и кликаем')
     def click_order_button(self):
         """ Ждем загрузку элемента HTML по локатору и кликаем """
-        #self.scroll_to_element_by_locator(MainPageLocators.ORDER_BUTTON)
+        self.scroll_to_element_by_locator(MainPageLocators.ORDER_BUTTON)
         self.click_element_by_locator(MainPageLocators.ORDER_BUTTON)
 
     @allure.step('Проверяем, что появилось всплывающее окно с деталями заказа')
