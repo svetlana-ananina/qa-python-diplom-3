@@ -11,7 +11,7 @@ from pages.profile_page import ProfilePage
 class TestProfilePage:
 
     @allure.step('Открываем Личный кабинет по ссылке на Главной странице')
-    def open_profile_page_by_link(self, driver):
+    def __open_profile_page_by_link(self, driver):
         main_page = MainPage(driver)
         main_page.open_main_page()
         main_page.wait_for_load_element(MainPageLocators.ORDER_BUTTON)
@@ -28,25 +28,28 @@ class TestProfilePage:
 
     @allure.title('Проверяем переход по клику на «Личный кабинет»')
     @allure.description('')
-    def test_profile_link(self, get_browser, create_new_user_by_api, login_new_user):
+    def test_profile_link(self, get_browser, create_new_user_by_api, login_new_user, open_profile_page):
         # регистрируем нового пользователя и открываем окно веб-браузер
-        driver, email, password = login_new_user
+        #driver = login_new_user
         # открываем Главную страницу
-        main_page = self.open_profile_page_by_link(driver)
+        #main_page = self.__open_profile_page_by_link(driver)
+        driver = open_profile_page
         #_sleep(5)
         # Проверяем что текущий url это url Личного кабинета
-        assert main_page.get_current_url() == PROFILE_PAGE_URL
+        #assert #main_page.get_current_url() == PROFILE_PAGE_URL
+        assert driver.current_url == PROFILE_PAGE_URL
         #assert PROFILE_PAGE_URL in main_page.get_current_url()
 
 
-    @allure.title('Проверяем переход по клику на «Личный кабинет»')
+    @allure.title('Проверяем переход в раздел «История заказов»')
     @allure.description('')
     def test_order_history_link(self, get_browser, create_new_user_by_api, login_new_user):
         # регистрируем нового пользователя и открываем окно веб-браузер
         driver, email, password = login_new_user
 
         # открываем Главную страницу
-        self.open_profile_page_by_link(driver)
+        self.__open_profile_page_by_link(driver)
+        #open_profile_page_by_link(driver)
         #_sleep(5)
 
         # открываем Личный кабинет и ждем появления кнопки "Сохранить"
@@ -59,14 +62,15 @@ class TestProfilePage:
         assert profile_page.order_history_is_active() and profile_page.get_current_url() == ORDER_HISTORY_URL
 
 
-    @allure.title('Проверяем переход по клику на «Личный кабинет»')
+    @allure.title('Проверяем выход из аккаунта')
     @allure.description('')
     def test_exit_button(self, get_browser, create_new_user_by_api, login_new_user):
         # регистрируем нового пользователя и открываем окно веб-браузер
         driver, email, password = login_new_user
 
         # открываем Главную страницу
-        self.open_profile_page_by_link(driver)
+        self.__open_profile_page_by_link(driver)
+        #open_profile_page_by_link(driver)
         #_sleep(5)
 
         # открываем Личный кабинет и ждем появления кнопки "Сохранить"

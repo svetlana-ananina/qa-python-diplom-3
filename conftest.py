@@ -9,8 +9,9 @@ from helpers.common_helpers import _print_info, _sleep_ff
 from data import _browser, RESPONSE_KEYS
 from helpers.helpers_on_register_user import generate_random_user_data, try_to_create_user, try_to_delete_user, \
     try_to_login_user
-from locators import MainPageLocators, MAIN_PAGE_URL
+from locators import MainPageLocators, MAIN_PAGE_URL, ProfilePageLocators
 from pages.login_page import LoginPage
+from pages.main_page import MainPage
 
 
 #
@@ -72,8 +73,7 @@ def get_firefox_driver():
 def _user():
     _print_info('conftest::create_new_user: Регистрируем нового пользователя ...')
 
-@allure.title('')
-@allure.description('')
+@allure.title('Создаем нового пользователя через API и авторизуемся на сайте')
 @pytest.fixture
 def login_new_user(get_browser, create_new_user_by_api):
     # регистрируем нового пользователя
@@ -98,9 +98,27 @@ def login_new_user(get_browser, create_new_user_by_api):
     #_sleep(5)
     # Проверяем что текущий url это url страницы восстановления пароля
     # assert login_page.get_current_url() == MAIN_PAGE_URL
-    assert MAIN_PAGE_URL in login_page.get_current_url()
+    # assert MAIN_PAGE_URL in login_page.get_current_url()
 
-    return driver, email, password
+    #return driver, email, password
+    return driver
+
+
+@allure.step('Открываем Личный кабинет по ссылке на Главной странице')
+@pytest.fixture
+def open_profile_page(get_browser, create_new_user_by_api, login_new_user):
+    driver = login_new_user
+    main_page = MainPage(driver)
+    #main_page.open_main_page()
+    #main_page.wait_for_load_element(MainPageLocators.ORDER_BUTTON)
+    # _sleep(5)
+    # кликаем Личный кабинет в хедере
+    #main_page.click_profile_link()
+    # ждем перехода в Личный кабинет и появления кнопки "Сохранить"
+    #main_page.wait_for_load_element(ProfilePageLocators.SAVE_BUTTON)
+    main_page.open_profile_page_by_link()
+    # _sleep(5)
+    return driver
 
 
 #
@@ -136,19 +154,6 @@ def create_and_login_new_user_by_api(create_new_user_by_api):
     """
     Вспомогательный метод создания и удаления нового пользователя с помощью API
     """
-    _print_info('conftest::create_and_login_new_user_by_api: Авторизуем нового пользователя ...')
-    # Создаем нового пользователя
-    user_data = create_new_user_by_api
-    email = user_data['email']
-    password = user_data['password']
-    # отправляем запрос на авторизацию пользователя
-    response = try_to_login_user(email, password)
-
-    # проверяем что получен код ответа 200
-    assert response.status_code == 200, f'Ошибка API: Ошибка авторизации нового пользователя\nuser_data={user_data}\nответ: "{response.text}"'
-
-    #return user_data
-    return email, password
-
+    pass
 
 

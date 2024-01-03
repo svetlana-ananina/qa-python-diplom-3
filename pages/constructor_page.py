@@ -2,7 +2,7 @@ import allure
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
-from helpers.common_helpers import _print_info
+from helpers.common_helpers import _print_info, _sleep_ff
 from pages.base_page import BasePage
 from locators import MAIN_PAGE_URL, MainPageLocators, FEED_PAGE_URL
 from pages.main_page import MainPage
@@ -98,4 +98,33 @@ class ConstructorPage(MainPage):
     @allure.step('Проверяем, что появилось всплывающее окно с деталями заказа')
     def order_details_is_visible(self):
         return self.wait_for_load_element(MainPageLocators.ORDER_MODAL_OPENED_LINK)
+
+    ##########################################################################
+    # вспомогательная функция для других тестов
+    @allure.step('Проверяем, что ')
+    def create_order(self):
+        self.open_main_page()
+        # _sleep(5)
+        # Перемещаем булку в бургер
+        self.drag_and_drop_bun()
+        # _sleep(5)
+        # Добавляем соус в заказ
+        self.drag_and_drop_sauce()
+        # _sleep_ff(5)
+        # _sleep(5)
+        # Добавляем начинку в заказ
+        self.drag_and_drop_filling()
+        _sleep_ff(5)
+        # _sleep(5)
+        # кликаем кнопку Оформить заказ
+        _print_info('кликаем кнопку Оформить заказ ...')
+        self.click_order_button()
+        # ждем чтобы появилось всплывающее окно с деталями заказа
+        # _sleep(5)
+        self.order_details_is_visible()
+        # кликаем крестик - кнопку закрытия деталей заказа
+        self.click_element_by_locator(MainPageLocators.ORDER_CLOSE_BUTTON)
+        # _sleep(5)
+
+
 

@@ -3,7 +3,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
 from pages.base_page import BasePage
-from locators import MAIN_PAGE_URL, MainPageLocators, FEED_PAGE_URL
+from locators import MAIN_PAGE_URL, MainPageLocators, FEED_PAGE_URL, ProfilePageLocators
 
 
 class MainPage(BasePage):
@@ -45,4 +45,14 @@ class MainPage(BasePage):
         return WebDriverWait(self.driver, 10).until(
             expected_conditions.text_to_be_present_in_element_attribute(
                 MainPageLocators.FEED_LINK, 'class', MainPageLocators.ACTIVE_TEXT))
+
+    @allure.step('Открываем Личный кабинет по ссылке на Главной странице')
+    def open_profile_page_by_link(self):
+        self.open_main_page()
+        self.wait_for_load_element(MainPageLocators.ORDER_BUTTON)
+        # _sleep(5)
+        # кликаем Личный кабинет в хедере
+        self.click_profile_link()
+        # ждем перехода в Личный кабинет и появления кнопки "Сохранить"
+        self.wait_for_load_element(ProfilePageLocators.SAVE_BUTTON)
 

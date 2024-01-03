@@ -53,6 +53,20 @@ class LoginPage(BasePage):
         _sleep_ff(5)
         self.click_element_by_locator(LoginPageLocators.FORGOT_PAGE_LINK)
 
+    ##########################################################################
+    # вспомогательная функция для других тестов
+    @allure.title('Создаем нового пользователя через API и авторизуемся на сайте')
+    def login_new_user(self, email, password):
+        # открываем страницу авторизации
+        self.open_login_page()
+        # _sleep(5)
+        # Вводим email и пароль
+        self.enter_user_data(email, password)
+        _sleep_ff(5)
+        # кликаем кнопку "Войти"
+        self.click_login_button()
+        # ждем появления кнопки "Оформить заказ" на Главной странице
+        self.wait_for_load_element(MainPageLocators.ORDER_BUTTON)
 
 
 

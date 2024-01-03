@@ -45,12 +45,16 @@ class MainPageLocators:
     ORDER_MODAL_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_")]')                    # common/hidden
     #ORDER_MODAL_OPENED_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_opened__")]')     # visible
     ORDER_MODAL_OPENED_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_opened__3ISw4")]')     # visible
+    ORDER_CLOSE_BUTTON = (By.XPATH, './/button[contains(@class,"Modal_modal__close")]')     # visible
 
 
 class FeedPageLocators:
     # Вкладка Лента заказов
     ORDER_LINK = (By.XPATH, '//*[contains(@href,"/feed/")]')
-    ORDER_DETAILS_OPENED_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_opened")]')
+    ORDER_DETAILS_OPENED = (By.XPATH, './/section[contains(@class,"Modal_modal_opened")]')
+    ORDER_LIST_ITEM = (By.XPATH, './/li[contains(@class,"OrderHistory_listItem")]')
+    #ORDER_NUMBER_TEXT = (By.XPATH, './/li[contains(@class,"OrderHistory_listItem")]/a/div/p[contains(@class,"digits")]')
+    ORDER_NUMBER_TEXT = (By.XPATH, './/li[contains(@class,"OrderHistory_listItem")]/a/div/p[contains(@class,"digits")]')
 
 
 class ProfilePageLocators:
@@ -59,6 +63,7 @@ class ProfilePageLocators:
     #ORDER_HISTORY_LINK = (By.XPATH, ".//a[text()='Профиль']")              # Ссылка История заказов
     ORDER_HISTORY_ACTIVE_TEXT = 'Account_link_active'                       # История заказов активна
     EXIT_BUTTON = (By.XPATH, ".//button[text()='Выход']")                   # Кнопка "Выход"
+    ORDER_NUMBER_TEXT = (By.XPATH, './/li[contains(@class,"OrderHistory_listItem")]/a/div/p')       #
 
 
 class LoginPageLocators:
