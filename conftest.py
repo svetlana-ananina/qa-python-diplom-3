@@ -68,11 +68,6 @@ def get_firefox_driver():
     driver.quit()
 
 
-@allure.step('Регистрируем нового пользователя')
-@pytest.fixture
-def _user():
-    _print_info('conftest::create_new_user: Регистрируем нового пользователя ...')
-
 @allure.title('Создаем нового пользователя через API и авторизуемся на сайте')
 @pytest.fixture
 def login_new_user(get_browser, create_new_user_by_api):
@@ -96,28 +91,6 @@ def login_new_user(get_browser, create_new_user_by_api):
     # ждем появления кнопки "Оформить заказ" на Главной странице
     login_page.wait_for_load_element(MainPageLocators.ORDER_BUTTON)
     #_sleep(5)
-    # Проверяем что текущий url это url страницы восстановления пароля
-    # assert login_page.get_current_url() == MAIN_PAGE_URL
-    # assert MAIN_PAGE_URL in login_page.get_current_url()
-
-    #return driver, email, password
-    return driver
-
-
-@allure.step('Открываем Личный кабинет по ссылке на Главной странице')
-@pytest.fixture
-def open_profile_page(get_browser, create_new_user_by_api, login_new_user):
-    driver = login_new_user
-    main_page = MainPage(driver)
-    #main_page.open_main_page()
-    #main_page.wait_for_load_element(MainPageLocators.ORDER_BUTTON)
-    # _sleep(5)
-    # кликаем Личный кабинет в хедере
-    #main_page.click_profile_link()
-    # ждем перехода в Личный кабинет и появления кнопки "Сохранить"
-    #main_page.wait_for_load_element(ProfilePageLocators.SAVE_BUTTON)
-    main_page.open_profile_page_by_link()
-    # _sleep(5)
     return driver
 
 
@@ -140,20 +113,12 @@ def create_new_user_by_api():
     # получаем токены пользователя
     received_body = response.json()
     auth_token = received_body[RESPONSE_KEYS.ACCESS_TOKEN]
-    refresh_token = received_body[RESPONSE_KEYS.REFRESH_TOKEN]
+    #refresh_token = received_body[RESPONSE_KEYS.REFRESH_TOKEN]
     #return auth_token, refresh_token
     yield user_data
 
     _print_info('conftest::create_new_user_API: Удаляем пользователя ...')
     try_to_delete_user(auth_token)
 
-
-@allure.step('Создаем и авторизуем нового пользователя с помощью API')
-@pytest.fixture
-def create_and_login_new_user_by_api(create_new_user_by_api):
-    """
-    Вспомогательный метод создания и удаления нового пользователя с помощью API
-    """
-    pass
 
 

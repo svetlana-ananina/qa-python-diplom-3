@@ -99,10 +99,8 @@ class ConstructorPage(MainPage):
     def order_details_is_visible(self):
         return self.wait_for_load_element(MainPageLocators.ORDER_MODAL_OPENED_LINK)
 
-    ##########################################################################
-    # вспомогательная функция для других тестов
-    @allure.step('Проверяем, что ')
-    def create_order(self):
+    @allure.step('Создаем заказ')
+    def _create_order(self):
         self.open_main_page()
         # _sleep(5)
         # Перемещаем булку в бургер
@@ -119,6 +117,13 @@ class ConstructorPage(MainPage):
         # кликаем кнопку Оформить заказ
         _print_info('кликаем кнопку Оформить заказ ...')
         self.click_order_button()
+
+
+    ##########################################################################
+    # вспомогательная функция для других тестов
+    @allure.step('Создаем заказ')
+    def create_order(self):
+        self._create_order()
         # ждем чтобы появилось всплывающее окно с деталями заказа
         # _sleep(5)
         self.order_details_is_visible()

@@ -76,7 +76,8 @@ class TestConstructorPage:
         main_page.click_details_close_link()
         #
         main_page.ingredient_details_is_closed()
-        #
+
+        # проверяем что модальное окно с деталями заказа закрылось
         assert element.get_attribute('class') == MainPageLocators.DETAILS_LINK_CLASS
 
     @allure.title('Проверяем, что при добавлении ингредиента в заказ счётчик этого ингридиента увеличивается')
@@ -93,37 +94,22 @@ class TestConstructorPage:
         # получаем значение счетчика после добавления ингредиента
         counter_after = main_page.get_buns_counter()
         _sleep(5)
+
         # Проверяем, что счетчик ингредиента увеличивается
         assert counter_after > counter_before
 
 
     @allure.title('Проверяем, что залогиненный пользователь может оформить заказ')
-    def test_order_checkout_by_user(self, get_browser, create_new_user_by_api, login_new_user):
+    def test_checkout_order_by_user(self, get_browser, create_new_user_by_api, login_new_user):
         # регистрируем нового пользователя и открываем окно веб-браузера
-        driver, email, password = login_new_user
-        #driver = get_browser
+        driver = login_new_user
         # открываем Главную страницу
         main_page = ConstructorPage(driver)
-        # Открываем Конструктор
-        main_page.open_main_page()
+        # оформляем заказ
+        main_page._create_order()
         #_sleep(5)
-        # Перемещаем булку в бургер
-        main_page.drag_and_drop_bun()
-        #_sleep(5)
-        # Добавляем соус в заказ
-        main_page.drag_and_drop_sauce()
-        #_sleep_ff(5)
-        #_sleep(5)
-        # Добавляем начинку в заказ
-        main_page.drag_and_drop_filling()
-        _sleep_ff(5)
-        #_sleep(5)
-        # кликаем кнопку Оформить заказ
-        _print_info('кликаем кнопку Оформить заказ ...')
-        main_page.click_order_button()
-        #
-        #_sleep(5)
-        #
+
+        # проверяем, что появилось модальное окно с деталями заказа
         assert main_page.order_details_is_visible()
 
 

@@ -53,17 +53,21 @@ class FeedPageLocators:
     ORDER_LINK = (By.XPATH, '//*[contains(@href,"/feed/")]')
     ORDER_DETAILS_OPENED = (By.XPATH, './/section[contains(@class,"Modal_modal_opened")]')
     ORDER_LIST_ITEM = (By.XPATH, './/li[contains(@class,"OrderHistory_listItem")]')
-    #ORDER_NUMBER_TEXT = (By.XPATH, './/li[contains(@class,"OrderHistory_listItem")]/a/div/p[contains(@class,"digits")]')
-    ORDER_NUMBER_TEXT = (By.XPATH, './/li[contains(@class,"OrderHistory_listItem")]/a/div/p[contains(@class,"digits")]')
+    #ORDER_LIST_ORDER_NUMBER = (By.XPATH, './/li/a/div/p[contains(@class,"digits")]')
+    ORDER_LIST_ORDER_NUMBER = (By.XPATH, './/p[@class="text text_type_digits-default"]')
 
 
 class ProfilePageLocators:
     SAVE_BUTTON = (By.XPATH, ".//button[text()='Сохранить']")               # Кнопка "Сохранить"
     ORDER_HISTORY_LINK = (By.XPATH, ".//a[@href='/account/order-history']") # Ссылка История заказов
     #ORDER_HISTORY_LINK = (By.XPATH, ".//a[text()='Профиль']")              # Ссылка История заказов
-    ORDER_HISTORY_ACTIVE_TEXT = 'Account_link_active'                       # История заказов активна
+    ORDER_HISTORY_IS_ACTIVE = 'Account_link_active'                       # История заказов активна
     EXIT_BUTTON = (By.XPATH, ".//button[text()='Выход']")                   # Кнопка "Выход"
-    ORDER_NUMBER_TEXT = (By.XPATH, './/li[contains(@class,"OrderHistory_listItem")]/a/div/p')       #
+    ORDER_HISTORY_ORDER_NUMBER = (By.XPATH, './/li[contains(@class,"OrderHistory_listItem")]/a/div/p[contains(@class,"digits")]')
+    #ORDER_NUMBER_TEXT = (By.XPATH, './/p[@class="text text_type_digits-default"]')
+
+
+# 'class="text text_type_digits-default"'
 
 
 class LoginPageLocators:

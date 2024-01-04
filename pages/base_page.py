@@ -21,7 +21,7 @@ class BasePage:
     @allure.step('Ждем загрузку элемента HTML по локатору')
     def wait_for_load_element(self, locator):
         """ Ждем загрузку элемента HTML по локатору {locator} """
-        return WebDriverWait(self.driver, 10).until(
+        return WebDriverWait(self.driver, 15).until(
             EC.visibility_of_element_located(locator))
 
     @allure.step('Ждем открытие страницы при переходе по ссылке URL')
