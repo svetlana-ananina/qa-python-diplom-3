@@ -46,7 +46,7 @@ class ConstructorPage(MainPage):
         self.drag_and_drop(source, target)
         # _sleep(5)
 
-    @allure.step('Добавляем булку в заказ')
+    @allure.step('Получаем счетчик булок')
     def get_buns_counter(self):
         #source = self.wait_for_load_element(MainPageLocators.INGREDIENT_COUNTER_LINK)
         #counter = int(self.check_text(MainPageLocators.INGREDIENT_COUNTER_LINK))
@@ -99,6 +99,12 @@ class ConstructorPage(MainPage):
     def order_details_is_visible(self):
         return self.wait_for_load_element(MainPageLocators.ORDER_MODAL_OPENED_LINK)
 
+
+    @allure.step('Получаем номер заказа')
+    def get_new_order_number(self):
+        #return self.wait_for_load_element(MainPageLocators.ORDER_MODAL_ORDER_NUMBER).text
+        return self.wait_for_load_element(MainPageLocators.ORDER_MODAL_ORDER_NUMBER).text
+
     @allure.step('Создаем заказ')
     def _create_order(self):
         self.open_main_page()
@@ -121,15 +127,28 @@ class ConstructorPage(MainPage):
 
     ##########################################################################
     # вспомогательная функция для других тестов
-    @allure.step('Создаем заказ')
+    @allure.step('Создаем заказ и получаем его номер')
     def create_order(self):
+        _print_info('Создаем заказ ...')
         self._create_order()
+        _print_info('заказ создан')
         # ждем чтобы появилось всплывающее окно с деталями заказа
         # _sleep(5)
+        _print_info('ждем чтобы появилось всплывающее окно с деталями заказа ...')
         self.order_details_is_visible()
+        res = self.wait_for_changed_text(MainPageLocators.ORDER_MODAL_ORDER_NUMBER, '9999')
+        _print_info(f'res = {res}')
+
+        # получаем номер заказа
+        _print_info('получаем номер заказа ...')
+        number = self.get_new_order_number()
+        _print_info(f'номер заказа={number}')           # номер заказа=9999
         # кликаем крестик - кнопку закрытия деталей заказа
+        _print_info('кликаем крестик - кнопку закрытия деталей заказа ...')
         self.click_element_by_locator(MainPageLocators.ORDER_CLOSE_BUTTON)
+        _print_info('Закрыли окно с деталями крестиком')
         # _sleep(5)
+        return number
 
 
 

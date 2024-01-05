@@ -41,11 +41,15 @@ class MainPageLocators:
     #DRAGNDROP_BURGER_TARGET = (By.XPATH, '//*[contains(@class,"BurgerConstructor_basket")]')
     DRAGNDROP_BURGER_TARGET = (By.XPATH, '//*[contains(@class,"BurgerConstructor_basket__list")]')
 
+    # Модальное окно - заказ оформлен
     ORDER_ID_LINK = (By.XPATH, './/p[text()="Ваш заказ начали готовить"]')
     ORDER_MODAL_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_")]')                    # common/hidden
     #ORDER_MODAL_OPENED_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_opened__")]')     # visible
     ORDER_MODAL_OPENED_LINK = (By.XPATH, './/section[contains(@class,"Modal_modal_opened__3ISw4")]')     # visible
     ORDER_CLOSE_BUTTON = (By.XPATH, './/button[contains(@class,"Modal_modal__close")]')     # visible
+    ORDER_MODAL_ORDER_NUMBER = (By.XPATH, './/h2[contains(@class,"Modal_modal__title_shadow")]')     # номер нового заказа
+
+# h2 class="Modal_modal__title_shadow__3ikwq Modal_modal__title__2L34m text text_type_digits-large mb-8"
 
 
 class FeedPageLocators:
@@ -55,7 +59,17 @@ class FeedPageLocators:
     ORDER_LIST_ITEM = (By.XPATH, './/li[contains(@class,"OrderHistory_listItem")]')
     #ORDER_LIST_ORDER_NUMBER = (By.XPATH, './/li/a/div/p[contains(@class,"digits")]')
     ORDER_LIST_ORDER_NUMBER = (By.XPATH, './/p[@class="text text_type_digits-default"]')
-
+    ORDER_STATUS_BOX = (By.XPATH, './/div[contains(@class,"OrderFeed_orderStatusBox")]')
+    ORDER_STATUS_BOX_LIST = (By.XPATH, './/ul[contains(@class,"OrderFeed_orderList")]')
+    ORDER_STATUS_BOX_LIST1 = (By.XPATH, '(.//ul[contains(@class,"OrderFeed_orderList")])[1]')
+    ORDER_STATUS_BOX_LIST2 = (By.XPATH, '(.//ul[contains(@class,"OrderFeed_orderList")])[2]')
+    ORDER_STATUS_BOX_LIST1_ITEM = (By.XPATH, '(.//ul[contains(@class,"OrderFeed_orderList")])[1]/li')
+    ORDER_STATUS_BOX_LIST2_ITEM = (By.XPATH, '(.//ul[contains(@class,"OrderFeed_orderList")])[2]/li')
+    ORDER_STATUS_BOX_LIST2_ITEM_DIGIT = (By.XPATH, '(.//ul[contains(@class,"OrderFeed_orderList")])[2]/li[contains(@class,"digits")]')
+# div 'OrderFeed_orderStatusBox'
+# ul 'OrderFeed_orderList'
+# li class="text text_type_main-small" 'Все текущие заказы готовы!
+# li class = "text text_type_digits-default mb-2"
 
 class ProfilePageLocators:
     SAVE_BUTTON = (By.XPATH, ".//button[text()='Сохранить']")               # Кнопка "Сохранить"
@@ -65,9 +79,6 @@ class ProfilePageLocators:
     EXIT_BUTTON = (By.XPATH, ".//button[text()='Выход']")                   # Кнопка "Выход"
     ORDER_HISTORY_ORDER_NUMBER = (By.XPATH, './/li[contains(@class,"OrderHistory_listItem")]/a/div/p[contains(@class,"digits")]')
     #ORDER_NUMBER_TEXT = (By.XPATH, './/p[@class="text text_type_digits-default"]')
-
-
-# 'class="text text_type_digits-default"'
 
 
 class LoginPageLocators:

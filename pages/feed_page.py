@@ -5,16 +5,28 @@ from selenium.webdriver.support.wait import WebDriverWait
 from helpers.common_helpers import _print_info
 from pages.base_page import BasePage
 from locators import MAIN_PAGE_URL, MainPageLocators, FEED_PAGE_URL, FeedPageLocators
+from pages.constructor_page import ConstructorPage
 from pages.main_page import MainPage
 
 
-class FeedPage(MainPage):
+#class FeedPage(MainPage):
+class FeedPage(ConstructorPage):
 
-    @allure.step('Открываем Личный кабинет по ссылке на Главной странице')
+    @allure.step('Открываем Ленту заказов по ссылке на Главной странице')
     def open_feed_page_by_link(self):
-        main_page = MainPage(self.driver)
-        main_page.open_feed_page()
-        return main_page
+        #main_page = MainPage(self.driver)
+        self.open_feed_page()
+        #return main_page
+
+    @allure.step('Оформляем заказ и открываем Ленту заказов')
+    def create_user_order_and_open_feed_page(self):
+        # открываем конструктор
+        #main_page = ConstructorPage(self.driver)
+        # оформляем заказ
+        order = self.create_order()         # метод ConstructorPage
+        # Открываем Ленту заказов по ссылке на Главной странице
+        self.click_feed_link()      # метод MainPage
+        return order
 
     @allure.step('кликаем на 1-й заказ')
     def click_order_link(self):
@@ -28,10 +40,9 @@ class FeedPage(MainPage):
     def __get_order_number_list_elements(self):
         return self.wait_for_load_all_elements(FeedPageLocators.ORDER_LIST_ORDER_NUMBER)
 
-
     @allure.step('Получаем список номеров заказов')
     def get_order_number_list(self):
-        # Открываем Личный кабинет по ссылке на Главной странице
+        # Открываем Ленту заказов по ссылке на Главной странице
         self.open_feed_page_by_link()
         # получаем элементы списка с номерами заказов
         _print_info(f'get_order_number_list_elements ...')
@@ -45,4 +56,14 @@ class FeedPage(MainPage):
             #_print_info(f'number={number}')
             order_list.append(number)
         return order_list
+
+    #    ORDER_STATUS_BOX_LIST2_ITEM = (By.XPATH, '(.//ul[contains(@class,"OrderFeed_orderList")])[2]/li')
+
+    @allure.step('Получаем список номеров заказов')
+    def get_order_list_in_work(self):
+        # Открываем Ленту заказов по ссылке на Главной странице
+        self.open_feed_page_by_link()
+        elements = self.wait_for_load_all_elements(FeedPageLocators.ORDER_STATUS_BOX_LIST2_ITEM)
+        return elements
+
 
