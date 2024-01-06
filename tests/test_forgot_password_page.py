@@ -9,7 +9,7 @@ from pages.reset_password_page import ResetPasswordPage
 
 class TestForgotPasswordPage:
 
-    @allure.title('Проверяем переход на страницу восстановления пароля по кнопке «Восстановить пароль»')
+    @allure.title('Проверяем переход на страницу восстановления пароля по гиперссылке «Восстановить пароль»')
     def test_forgot_password_button(self, get_browser):
         # Открываем окно веб-браузер
         driver = get_browser
@@ -38,7 +38,7 @@ class TestForgotPasswordPage:
         assert forgot_password_page.get_current_url() == RESET_PASSWORD_PAGE_URL
 
 
-    @allure.title('Проверяем ввод почты и клик по кнопке «Восстановить»')
+    @allure.title('Проверяем что клик по кнопке показать/скрыть пароль делает поле активным')
     def test_eye_button(self, get_browser):
         # Открываем окно веб-браузер
         driver = get_browser

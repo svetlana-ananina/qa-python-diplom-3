@@ -24,7 +24,7 @@ def get_browser():
     if _browser == 'Chrome':
         chrome_service = ChromeService(executable_path='C:/WebDriver/bin/chromedriver.exe')
         driver = webdriver.Chrome(service=chrome_service)
-        #driver.set_window_size(1920, 1080)
+        driver.set_window_size(1920, 1080)
         driver.maximize_window()
     else:
         firefox_service = FirefoxService(executable_path='C:/WebDriver/bin/geckodriver.exe')
@@ -44,7 +44,6 @@ def get_chrome_driver():
     chrome_service = ChromeService(executable_path='C:/WebDriver/bin/chromedriver.exe')
     driver = webdriver.Chrome(service=chrome_service)
     driver.set_window_size(1920,1080)
-    #driver = webdriver.Chrome()
     yield driver
 
     # Закрываем драйвер по окончании использования фикстуры
@@ -58,8 +57,6 @@ def get_firefox_driver():
     _print_info('conftest::get_browser: открываем браузер Firefox ...')
     firefox_service = FirefoxService(executable_path='C:/WebDriver/bin/geckodriver.exe')
     driver = webdriver.Firefox(service=firefox_service)
-    #firefox_driver.set_window_size(1920,1080)
-    #driver = webdriver.Firefox()
     yield driver
 
     # Закрываем драйвер по окончании использования фикстуры
@@ -74,17 +71,14 @@ def login_new_user(get_browser, create_new_user_by_api):
     user_data = create_new_user_by_api
     email = user_data['email']
     password = user_data['password']
-    _print_info(f'conftest::register_and_login_new_user: Авторизация нового пользователя\nuser_data = {user_data} ...')
     # Открываем окно веб-браузер
     driver = get_browser
     # открываем страницу авторизации
     login_page = LoginPage(driver)
     login_page.open_login_page()
     login_page.wait_open_login_page()
-    # _sleep(5)
     # Вводим email и пароль
     login_page.enter_user_data(email, password)
-    _sleep_ff(5)
     # кликаем кнопку "Войти"
     login_page.click_login_button()
     # ждем появления кнопки "Оформить заказ" на Главной странице
