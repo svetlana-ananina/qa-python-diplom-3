@@ -1,8 +1,4 @@
-import allure
-import pytest
 import time
-import random
-import string
 
 
 from data import _to_print, _to_sleep, _to_sleep_ff

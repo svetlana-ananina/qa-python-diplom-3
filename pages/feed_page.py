@@ -3,13 +3,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 from helpers.common_helpers import _print_info
-from pages.base_page import BasePage
-from locators import MAIN_PAGE_URL, MainPageLocators, FEED_PAGE_URL, FeedPageLocators
+from locators import FeedPageLocators
 from pages.constructor_page import ConstructorPage
-from pages.main_page import MainPage
 
 
-#class FeedPage(MainPage):
 class FeedPage(ConstructorPage):
 
     @allure.step('Открываем Ленту заказов по ссылке на Главной странице')

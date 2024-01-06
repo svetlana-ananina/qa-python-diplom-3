@@ -38,6 +38,7 @@ class TestConstructorPage:
         # Проверяем что текущий url это url Ленты заказов
         assert main_page.feed_is_active() and main_page.get_current_url() == FEED_PAGE_URL
 
+
     @allure.title('Проверяем, что если кликнуть на ингредиент, появится всплывающее окно с деталями')
     def test_click_ingredient(self, get_browser):
         driver = get_browser
@@ -52,6 +53,7 @@ class TestConstructorPage:
         # Проверяем что появился заголовок Детали ингредиента
         assert main_page.details_title_is_visible()
 
+
     @allure.title('Проверяем, что всплывающее окно закрывается кликом по крестику')
     def test_closes_ingredient_details(self, get_browser):
         driver = get_browser
@@ -64,11 +66,12 @@ class TestConstructorPage:
         element = main_page.ingredient_details_is_opened()
         # кликаем на крестик
         main_page.click_details_close_link()
-        #
+        # ждем пока закроется модальное окно
         main_page.ingredient_details_is_closed()
 
         # проверяем что модальное окно с деталями заказа закрылось
         assert element.get_attribute('class') == MainPageLocators.DETAILS_LINK_CLASS
+
 
     @allure.title('Проверяем, что при добавлении ингредиента в заказ счётчик этого ингридиента увеличивается')
     def test_append_ingredient_in_order(self, get_browser):

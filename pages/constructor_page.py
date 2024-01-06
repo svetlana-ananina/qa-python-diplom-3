@@ -3,8 +3,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 from helpers.common_helpers import _print_info, _sleep_ff
-from pages.base_page import BasePage
-from locators import MAIN_PAGE_URL, MainPageLocators, FEED_PAGE_URL
+from locators import MainPageLocators
 from pages.main_page import MainPage
 
 
@@ -25,7 +24,6 @@ class ConstructorPage(MainPage):
     @allure.step('кликаем на крестик')
     def click_details_close_link(self):
         self.click_element_by_locator(MainPageLocators.DETAILS_CLOSE_LINK)
-        #_sleep(5)
 
     @allure.step('кликаем на крестик')
     def click_details_close_link(self):
@@ -44,7 +42,7 @@ class ConstructorPage(MainPage):
 
     @allure.step('Получаем счетчик булок')
     def get_buns_counter(self):
-        counter = self.check_text(MainPageLocators.INGREDIENT_COUNTER_LINK)
+        counter = self.get_text(MainPageLocators.INGREDIENT_COUNTER_LINK)
         counter = int(counter)
         return counter
 
@@ -67,7 +65,6 @@ class ConstructorPage(MainPage):
         source = self.wait_for_load_element(MainPageLocators.INGREDIENT_3_LINK)
         target = self.wait_for_load_element(MainPageLocators.DRAGNDROP_BURGER_TARGET)
         self.drag_and_drop(source, target)
-        # _sleep(5)
 
     @allure.step('Добавляем начинку в заказ')
     def drag_and_drop_filling(self):
@@ -75,7 +72,6 @@ class ConstructorPage(MainPage):
         source = self.wait_for_load_element(MainPageLocators.INGREDIENT_7_LINK)
         target = self.wait_for_load_element(MainPageLocators.DRAGNDROP_BURGER_TARGET)
         self.drag_and_drop(source, target)
-        # _sleep(5)
 
     @allure.step('Ждем видимости элемента по локатору и кликаем')
     def click_order_button(self):
@@ -102,7 +98,6 @@ class ConstructorPage(MainPage):
         self.drag_and_drop_filling()
         _sleep_ff(5)
         # кликаем кнопку Оформить заказ
-        _print_info('кликаем кнопку Оформить заказ ...')
         self.click_order_button()
 
 

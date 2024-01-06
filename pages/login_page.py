@@ -15,12 +15,10 @@ class LoginPage(BasePage):
         self.open_page(LOGIN_PAGE_URL)
         self.wait_for_load_element(LoginPageLocators.LOGIN_BUTTON)
 
-
     @allure.step('Ждем загрузку страницы авторизации')
     def wait_open_login_page(self):
         # Открываем страницу авторизации
         self.wait_for_load_element(LoginPageLocators.LOGIN_BUTTON)
-
 
     @allure.step('Вводим email и пароль')
     def enter_user_data(self, email, password):
@@ -36,14 +34,11 @@ class LoginPage(BasePage):
         self.click_element_by_locator_when_clickable(LoginPageLocators.PASSWORD_FIELD)
         # вводим пароль
         self.set_value(LoginPageLocators.PASSWORD_FIELD, password)
-        #_sleep_ff(5)
-
 
     @allure.step('кликаем кнопку "Войти"')
     def click_login_button(self):
         # кликаем кнопку "Войти"
         self.click_element_by_locator(LoginPageLocators.LOGIN_BUTTON)
-
 
     @allure.step('Прокручиваем страницу и кликаем ссылку "Восстановить пароль"')
     def scroll_to_click_forgot_password_link(self):
@@ -52,21 +47,4 @@ class LoginPage(BasePage):
         # кликаем ссылку "Восстановить пароль"
         _sleep_ff(5)
         self.click_element_by_locator(LoginPageLocators.FORGOT_PAGE_LINK)
-
-    ##########################################################################
-    # вспомогательная функция для других тестов
-    @allure.title('Создаем нового пользователя через API и авторизуемся на сайте')
-    def login_new_user(self, email, password):
-        # открываем страницу авторизации
-        self.open_login_page()
-        # _sleep(5)
-        # Вводим email и пароль
-        self.enter_user_data(email, password)
-        _sleep_ff(5)
-        # кликаем кнопку "Войти"
-        self.click_login_button()
-        # ждем появления кнопки "Оформить заказ" на Главной странице
-        self.wait_for_load_element(MainPageLocators.ORDER_BUTTON)
-
-
 

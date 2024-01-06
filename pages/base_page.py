@@ -15,7 +15,6 @@ class BasePage:
     @allure.step('Открываем страницу по URL')
     def open_page(self, page_url):
         """ Открываем страницу по URL {page_url} """
-        _print_info(f'\nBasePage: открываем страницу  ...{page_url}')
         return self.driver.get(page_url)
 
     @allure.step('Ждем загрузку элемента HTML по локатору')
@@ -51,14 +50,7 @@ class BasePage:
     @allure.step('Получаем текущий URL')
     def get_current_url(self):
         """ Получаем текущий url """
-        #url = self.driver.current_url
         return self.driver.current_url
-
-    @allure.step('Получаем заголовок окна')
-    def get_title(self):
-        """ Получаем заголовок страницы """
-        #title = self.driver.current_url
-        return self.driver.title
 
     @allure.step('Ищем элемент HTML по локатору')
     def find_element(self, locator):
@@ -80,27 +72,21 @@ class BasePage:
         """ Вводим текст в поле по локатору: {locator} """
         return WebDriverWait(self.driver, 20).until(
             EC.visibility_of_element_located(locator)).send_keys(value)
-        #self.driver.find_element(*locator).send_keys(value)
 
     @allure.step('Получаем значение поля по локатору')
-    def check_value(self, locator):
+    def get_value(self, locator):
         """ Получаем значение поля по локатору: {locator} """
         return WebDriverWait(self.driver, 20).until(
             EC.visibility_of_element_located(locator)).get_attribute("value")
-        #return self.driver.find_element(*locator).get_attribute("value")
 
     @allure.step('Получаем текст в поле по локатору')
-    def check_text(self, locator):
+    def get_text(self, locator):
         """ Получаем текст в поле по локатору: {locator} """
-        #source = self.wait_for_load_element(locator)
-        #return source.text
-        #return self.driver.find_element(*locator).text
         return (self.wait_for_load_element(locator)).text
 
     @allure.step('Прокручиваем страницу до элемента по локатору')
     def scroll_to_element_by_locator(self, locator):
         """ Прокручиваем страницу до элемента по локатору {locator} """
-        #element = self.driver.find_element(*locator)
         element = WebDriverWait(self.driver, 20).until(
             EC.visibility_of_element_located(locator))
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
@@ -117,14 +103,12 @@ class BasePage:
         """ Ждем загрузку элемента HTML по локатору и кликаем """
         WebDriverWait(self.driver, 20).until(
             EC.visibility_of_element_located(locator)).click()
-        #self.driver.find_element(*locator).click()
 
     @allure.step('Ждем кликабельности элемента по локатору и кликаем')
     def click_element_by_locator_when_clickable(self, locator):
         """ Ждем загрузку элемента HTML по локатору и кликаем """
         element = WebDriverWait(self.driver, 20).until(
             EC.element_to_be_clickable(locator))
-        #self.driver.find_element(*locator).click()
         element.click()
 
     @allure.step('Кликаем элемент')
