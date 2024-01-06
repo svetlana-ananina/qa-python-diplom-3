@@ -63,34 +63,83 @@ class TestFeedPage:
         # проверяем, что заказ в ленте
         assert user_order in feed_order_list, f'Ошибка проверки Ленты заказов: заказ пользователя: {user_order} отсутствует в Ленте'
 
-    @allure.title('Проверяем что заказы пользователя из раздела «История заказов» отображаются на странице «Лента заказов»')
+    @allure.title('Проверяем что после оформления заказа его номер появляется в разделе В работе')
     def test_user_order_is_in_work(self, get_browser, create_new_user_by_api, login_new_user):
         # регистрируем нового пользователя и открываем окно веб-браузера и страницу профиля
         driver = login_new_user
         # создаем заказ
-        _print_info('test_user_order_is_in_work: создаем заказ ...')
-        order = self.__create_user_order(driver)
-        _print_info(f'test_user_order_is_in_work: заказ создан order={order}')
-        # получаем номер заказа из истории в Личном кабинете пользователя
-        #user_order = self.__get_order_from_user_history(driver)
-        #_print_info(f'user_order={user_order}')
+        #_print_info('test_user_order_is_in_work: создаем заказ ...')
+        new_order = self.__create_user_order(driver)
+        #_print_info(f'test_user_order_is_in_work: заказ создан new_order={new_order}, type(new_order)={type(new_order)}')
 
-        # получаем список номеров заказов в Ленте
+        # переходим к Ленте заказов на Главной странице
         feed_page = FeedPage(driver)
-        _print_info('test_user_order_is_in_work: feed_page.click_feed_link()  ...')
+        #_print_info('test_user_order_is_in_work: feed_page.click_feed_link()  ...')
+        # кликаем ссылку на Ленту заказов на главной странице
         feed_page.click_feed_link()      # метод MainPage
-        #orders_list_in_work = feed_page.get_order_list_in_work()
         #_sleep(5)
 
-        _print_info(f'test_user_order_is_in_work: wait_for_load_all_elements  {FeedPageLocators.ORDER_STATUS_BOX_LIST2_ITEM_DIGIT} ...')
-        # ORDER_STATUS_BOX_LIST2_ITEM_DIGIT = (
-        # By.XPATH, '(.//ul[contains(@class,"OrderFeed_orderList")])[2]/li[contains(@class,"digits")]')
-        orders_list = feed_page.wait_for_load_all_elements(FeedPageLocators.ORDER_STATUS_BOX_LIST2_ITEM_DIGIT)
-        _print_info(f'len(orders_list)={len(orders_list)}')
+        # получаем список номеров заказов в Ленте
+        #_print_info('test_user_order_is_in_work: feed_page.get_order_list_in_work()  ...')
+        orders_list_in_work = feed_page.get_order_list_in_work()
+        #_print_info(f'len={len(orders_list_in_work)}, orders_list_in_work={orders_list_in_work}')
 
-        #if len(orders_list) > 0:
-        for element in orders_list:
-            _print_info(f'element.text={element.text}')
+        # проверяем что новый заказ есть в списке
+        #_print_info(f'test_user_order_is_in_work: assert new_order in orders_list_in_work ...')
+        assert new_order in orders_list_in_work, f'Ошибка проверки раздела "В работе": созданный заказ не отображается в разделе'
+        #_print_info(f'test_user_order_is_in_work: assert - success')
+        _sleep(5)
+
+    @allure.title('Проверяем что создании нового заказа счётчик "Выполнено за всё время" увеличивается')
+    def test_orders_total_counter(self, get_browser, create_new_user_by_api, login_new_user):
+        # регистрируем нового пользователя и открываем окно веб-браузера и страницу профиля
+        driver = login_new_user
+        # Открываем Ленту заказов
+        feed_page = FeedPage(driver)
+        # кликаем ссылку на Ленту заказов на главной странице
+        feed_page.open_feed_page_by_link()
+        # получаем счетчик заказов за все время
+        orders_before = feed_page.get_orders_total()
+        _print_info(f'orders_before={orders_before}')
+
+        # создаем заказ
+        new_order = self.__create_user_order(driver)
+
+        # Открываем Ленту заказов
+        feed_page.open_feed_page_by_link()
+        # получаем счетчик заказов за все время
+        orders_after = feed_page.get_orders_total()
+        _print_info(f'orders_after={orders_after}')
+
+        # проверяем что счетчик увеличился
+        assert orders_after > orders_before, f'Ошибка проверки раздела "Выполнено за все время": счетчик не увеличился'
+        #_print_info(f'test_user_order_is_in_work: assert - success')
+        _sleep(5)
+
+    @allure.title('Проверяем что при создании нового заказа счётчик "Выполнено за сегодня" увеличивается')
+    def test_orders_today_counter(self, get_browser, create_new_user_by_api, login_new_user):
+        # регистрируем нового пользователя и открываем окно веб-браузера и страницу профиля
+        driver = login_new_user
+        # Открываем Ленту заказов
+        feed_page = FeedPage(driver)
+        # кликаем ссылку на Ленту заказов на главной странице
+        feed_page.open_feed_page_by_link()
+        # получаем счетчик заказов за все время
+        orders_before = feed_page.get_orders_today()
+        _print_info(f'orders_before={orders_before}')
+
+        # создаем заказ
+        new_order = self.__create_user_order(driver)
+
+        # Открываем Ленту заказов
+        feed_page.open_feed_page_by_link()
+        # получаем счетчик заказов за все время
+        orders_after = feed_page.get_orders_today()
+        _print_info(f'orders_after={orders_after}')
+
+        # проверяем что счетчик увеличился
+        assert orders_after > orders_before, f'Ошибка проверки раздела "Выполнено за сегодня": счетчик не увеличился, было {orders_before}, стало {orders_after}'
+        #_print_info(f'test_user_order_is_in_work: assert - success')
         _sleep(5)
 
 

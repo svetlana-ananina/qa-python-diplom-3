@@ -66,10 +66,15 @@ class FeedPageLocators:
     ORDER_STATUS_BOX_LIST1_ITEM = (By.XPATH, '(.//ul[contains(@class,"OrderFeed_orderList")])[1]/li')
     ORDER_STATUS_BOX_LIST2_ITEM = (By.XPATH, '(.//ul[contains(@class,"OrderFeed_orderList")])[2]/li')
     ORDER_STATUS_BOX_LIST2_ITEM_DIGIT = (By.XPATH, '(.//ul[contains(@class,"OrderFeed_orderList")])[2]/li[contains(@class,"digits")]')
+    ORDER_FEED_NUMBER = (By.XPATH, './/p[contains(@class,"OrderFeed_number")]')
+
+
 # div 'OrderFeed_orderStatusBox'
 # ul 'OrderFeed_orderList'
 # li class="text text_type_main-small" 'Все текущие заказы готовы!
 # li class = "text text_type_digits-default mb-2"
+# p class= OrderFeed_number__2MbrQ text text_type_digits-large          # Выполнено за все время:
+# p class= OrderFeed_number__2MbrQ text text_type_digits-large          # Выполнено за сегодня:
 
 class ProfilePageLocators:
     SAVE_BUTTON = (By.XPATH, ".//button[text()='Сохранить']")               # Кнопка "Сохранить"

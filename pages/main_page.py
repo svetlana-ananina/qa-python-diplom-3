@@ -11,7 +11,6 @@ class MainPage(BasePage):
     @allure.step('Открываем Главную страницу')
     def open_main_page(self):
         self.open_page(MAIN_PAGE_URL)
-        #self.wait_for_load_element(MainPageLocators.ORDER_BUTTON)
         self.wait_for_load_element(MainPageLocators.ANY_BUTTON)
 
     @allure.step('Открываем Ленту заказов')
@@ -22,17 +21,14 @@ class MainPage(BasePage):
     @allure.step('кликаем ссылку "Личный кабинет"')
     def click_profile_link(self):
         self.click_element_by_locator(MainPageLocators.PROFILE_LINK)
-        #_sleep(5)
 
     @allure.step('кликаем ссылку "Конструктор"')
     def click_constructor_link(self):
         self.click_element_by_locator(MainPageLocators.CONSTRUCTOR_LINK)
-        #_sleep(5)
 
     @allure.step('кликаем ссылку "Лента заказов"')
     def click_feed_link(self):
         self.click_element_by_locator(MainPageLocators.FEED_LINK)
-        #_sleep(5)
 
     @allure.step('Проверяем, что Конструктор становится активным')
     def constructor_is_active(self):
@@ -50,7 +46,6 @@ class MainPage(BasePage):
     def open_profile_page_by_link(self):
         self.open_main_page()
         self.wait_for_load_element(MainPageLocators.ORDER_BUTTON)
-        # _sleep(5)
         # кликаем Личный кабинет в хедере
         self.click_profile_link()
         # ждем перехода в Личный кабинет и появления кнопки "Сохранить"
