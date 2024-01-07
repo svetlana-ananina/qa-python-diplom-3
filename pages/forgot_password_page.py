@@ -1,8 +1,8 @@
 import allure
 
 from helpers.common_helpers import _sleep_ff
-from pages.base_page import BasePage
 from locators import ForgotPasswordPageLocators, FORGOT_PASSWORD_PAGE_URL, ResetPasswordPageLocators
+from pages.base_page import BasePage
 
 
 class ForgotPasswordPage(BasePage):
@@ -37,6 +37,4 @@ class ForgotPasswordPage(BasePage):
         self.click_element_by_locator_when_clickable(ForgotPasswordPageLocators.RECOVER_BUTTON)
         # ждем появления кнопки "Сохранить" на странице сброса пароля
         self.wait_for_load_element(ResetPasswordPageLocators.SAVE_BUTTON)
-
-
 

@@ -3,8 +3,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 from helpers.common_helpers import _sleep_ff, _sleep
-from pages.base_page import BasePage
 from locators import LoginPageLocators, LOGIN_PAGE_URL
+from pages.base_page import BasePage
 
 
 class LoginPage(BasePage):

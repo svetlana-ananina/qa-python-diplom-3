@@ -54,5 +54,3 @@ class TestForgotPasswordPage:
         # Проверяем, что поле "email" становится активным
         assert reset_password_page.email_field_focused()
 
-
-

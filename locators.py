@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 
 
+# тестовые данные для функции восстановления пароля
 USER_EMAIL = 'ivanivanov@mail.ru'
 USER_PASSWORD = '123456'
 
@@ -89,6 +90,4 @@ class ResetPasswordPageLocators:
     PASSWORD_PLACEHOLDER = (By.XPATH, ".//label[text()='Пароль']")          # Плейсхолдер поля "Пароль"
     FOCUSED_FIELD = (By.XPATH, '//*[contains(@class,"input__placeholder")]')
     FOCUSED_TEXT = 'input__placeholder-focused'
-
-
 

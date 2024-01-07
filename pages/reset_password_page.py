@@ -2,8 +2,8 @@ import allure
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
-from pages.base_page import BasePage
 from locators import RESET_PASSWORD_PAGE_URL, ResetPasswordPageLocators
+from pages.base_page import BasePage
 
 
 class ResetPasswordPage(BasePage):

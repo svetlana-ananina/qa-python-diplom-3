@@ -102,5 +102,3 @@ class TestConstructorPage:
         # проверяем, что появилось модальное окно с деталями заказа
         assert main_page.order_details_is_visible()
 
-
-

@@ -6,8 +6,8 @@ _browser = 'Chrome'
 
 _to_sleep_ff = True
 
-_to_sleep = True
-#_to_sleep = False
+#_to_sleep = True
+_to_sleep = False
 
 
 class RESPONSE_KEYS:

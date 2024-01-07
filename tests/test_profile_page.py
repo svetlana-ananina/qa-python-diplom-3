@@ -60,5 +60,3 @@ class TestProfilePage:
         # Проверяем что текущий url это url страницы авторизации
         assert profile_page.get_current_url() == LOGIN_PAGE_URL
 
-
-

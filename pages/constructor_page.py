@@ -101,7 +101,6 @@ class ConstructorPage(MainPage):
         self.click_order_button()
 
 
-    ##########################################################################
     # вспомогательная функция для других тестов
     @allure.step('Создаем заказ и получаем его номер')
     def create_order(self):
@@ -114,6 +113,4 @@ class ConstructorPage(MainPage):
         # кликаем крестик - кнопку закрытия деталей заказа
         self.click_element_by_locator(MainPageLocators.ORDER_CLOSE_BUTTON)
         return number
-
-
 

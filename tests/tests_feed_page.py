@@ -116,7 +116,3 @@ class TestFeedPage:
         assert orders_after > orders_before, f'Ошибка проверки раздела "Выполнено за сегодня": счетчик не увеличился, было {orders_before}, стало {orders_after}'
         _sleep(5)
 
-
-
-
-

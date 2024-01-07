@@ -1,7 +1,6 @@
 import allure
 import pytest
 from selenium import webdriver
-
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.chrome.service import Service as ChromeService
 
@@ -33,7 +32,6 @@ def get_browser():
     yield driver
 
     # Закрываем драйвер по окончании использования
-    _print_info(f'\nconftest::get_browser: Закрываем Веб-драйвер {_browser} ...')
     driver.quit()
 
 
@@ -47,7 +45,6 @@ def get_chrome_driver():
     yield driver
 
     # Закрываем драйвер по окончании использования фикстуры
-    _print_info('\nconftest::get_browser: Закрываем Веб-драйвер ...')
     driver.quit()
 
 
@@ -60,7 +57,6 @@ def get_firefox_driver():
     yield driver
 
     # Закрываем драйвер по окончании использования фикстуры
-    _print_info('\nconftest::get_browser: Закрываем Веб-драйвер ...')
     driver.quit()
 
 
@@ -107,6 +103,4 @@ def create_new_user_by_api():
     yield user_data
 
     try_to_delete_user(auth_token)
-
-
 

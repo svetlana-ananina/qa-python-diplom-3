@@ -122,4 +122,3 @@ class BasePage:
         action = ActionChains(self.driver)
         action.drag_and_drop(source, target).perform()
 
-
