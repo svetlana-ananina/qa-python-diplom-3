@@ -1,0 +1,12 @@
+
+Создаем/регистрируем нового пользователя ...
+
+Отправляем запрос на создание пользователя: POST url="https://stellarburgers.nomoreparties.site/api/auth/register"
+json="{'email': 'hvatbxgvlt@mail.ru', 'password': 'qzgrobzvbk', 'name': 'elcexfdgsw'}"
+response="<Response [200]>", response.text="{"success":true,"user":{"email":"hvatbxgvlt@mail.ru","name":"elcexfdgsw"},"accessToken":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OWFhYmNhOWVkMjgwMDAxYjNhMTgyMSIsImlhdCI6MTcwNDYzNTMzOCwiZXhwIjoxNzA0NjM2NTM4fQ.Mi9xsw_HZD_gO0-TdY2SFPsHpsIzrxVJKwImh4ydsXI","refreshToken":"0f619321d1d26cf63e5f8148f609aa843129e6fd30129c33da46cab41f084e9854260e26a360c4e7"}"
+
+Удаляем пользователя ...
+
+Отправляем запрос на удаление пользователя: DELETE url="https://stellarburgers.nomoreparties.site/api/auth/user"
+headers="{'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OWFhYmNhOWVkMjgwMDAxYjNhMTgyMSIsImlhdCI6MTcwNDYzNTMzOCwiZXhwIjoxNzA0NjM2NTM4fQ.Mi9xsw_HZD_gO0-TdY2SFPsHpsIzrxVJKwImh4ydsXI'}"
+response="<Response [202]>", response.text="{"success":true,"message":"User successfully removed"}"
