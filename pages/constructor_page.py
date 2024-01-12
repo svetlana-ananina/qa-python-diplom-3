@@ -1,8 +1,5 @@
 import allure
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 
-from helpers.common_helpers import _print_info, _sleep_ff
 from locators import MainPageLocators
 from pages.main_page import MainPage
 
@@ -31,8 +28,7 @@ class ConstructorPage(MainPage):
 
     @allure.step('Проверяем что заголовок Детали ингредиента скрыт')
     def ingredient_details_is_closed(self):
-        return WebDriverWait(self.driver, 10).until(
-            EC.invisibility_of_element_located(MainPageLocators.DETAILS_TITLE_LINK))
+        self.wait_for_invisibility_of_element(MainPageLocators.DETAILS_TITLE_LINK)
 
     @allure.step('Добавляем булку в заказ')
     def drag_and_drop_bun(self):
@@ -96,7 +92,6 @@ class ConstructorPage(MainPage):
         self.drag_and_drop_sauce()
         # Добавляем начинку в заказ
         self.drag_and_drop_filling()
-        _sleep_ff(5)
         # кликаем кнопку Оформить заказ
         self.click_order_button()
 

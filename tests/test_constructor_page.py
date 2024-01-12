@@ -1,8 +1,8 @@
 import allure
 import pytest
 
-from helpers.common_helpers import _sleep, _print_info, _sleep_ff
-from locators import MainPageLocators, MAIN_PAGE_URL, FEED_PAGE_URL
+from data import Urls
+from locators import MainPageLocators
 from pages.constructor_page import ConstructorPage
 from pages.main_page import MainPage
 
@@ -21,7 +21,7 @@ class TestConstructorPage:
         main_page.wait_for_load_element(MainPageLocators.LOGIN_BUTTON)
 
         # Проверяем что текущий url это url Главной страницы
-        assert main_page.constructor_is_active() and main_page.get_current_url() == MAIN_PAGE_URL+'/'
+        assert main_page.constructor_is_active() and main_page.get_current_url() == Urls.MAIN_PAGE_URL+'/'
 
 
     @allure.title('Проверяем переход по клику на «Лента заказов»')
@@ -36,7 +36,7 @@ class TestConstructorPage:
         main_page.wait_for_load_element(MainPageLocators.TOTAL_TODAY)
 
         # Проверяем что текущий url это url Ленты заказов
-        assert main_page.feed_is_active() and main_page.get_current_url() == FEED_PAGE_URL
+        assert main_page.feed_is_active() and main_page.get_current_url() == Urls.FEED_PAGE_URL
 
 
     @allure.title('Проверяем, что если кликнуть на ингредиент, появится всплывающее окно с деталями')
@@ -55,7 +55,7 @@ class TestConstructorPage:
 
 
     @allure.title('Проверяем, что всплывающее окно закрывается кликом по крестику')
-    def test_closes_ingredient_details(self, get_browser):
+    def test_close_ingredient_details(self, get_browser):
         driver = get_browser
         main_page = ConstructorPage(driver)
         # Открываем Конструктор

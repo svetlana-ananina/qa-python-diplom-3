@@ -1,9 +1,6 @@
 import allure
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 
-from helpers.common_helpers import _print_info, _sleep
-from locators import PROFILE_PAGE_URL, ProfilePageLocators
+from locators import ProfilePageLocators
 from pages.base_page import BasePage
 from pages.main_page import MainPage
 
@@ -21,11 +18,10 @@ class ProfilePage(BasePage):
         # кликаем ссылку "Личный кабинет"
         self.click_element_by_locator(ProfilePageLocators.ORDER_HISTORY_LINK)
 
-    @allure.step('Проверяем, что  становится активным')
+    @allure.step('Проверяем, что раздел История заказов становится активным')
     def order_history_is_active(self):
-        return WebDriverWait(self.driver, 10).until(
-            EC.text_to_be_present_in_element_attribute(
-                ProfilePageLocators.ORDER_HISTORY_LINK, 'class', ProfilePageLocators.ORDER_HISTORY_IS_ACTIVE))     #.visibility_of_element_located(locator))
+        return self.wait_for_text_in_classname(ProfilePageLocators.ORDER_HISTORY_LINK,
+                                               ProfilePageLocators.ORDER_HISTORY_IS_ACTIVE)
 
     @allure.step('кликаем кнопку "Выход"')
     def click_exit_button(self):
@@ -50,9 +46,7 @@ class ProfilePage(BasePage):
         #
         order_list = []
         for item in elements:
-            number = item.text
-            _print_info(f'number={number}')
-            order_list.append(number)
+            order_list.append(item.text)
         return order_list
 
     #
@@ -68,9 +62,9 @@ class ProfilePage(BasePage):
         self.__open_profile_page_by_link()
         # кликаем ссылку История заказов
         self.click_order_history_link()
-        # получаем элементы списка с номерами заказов
+        # получаем 1-й элемент списка с номерами заказов
         element = self.__get_order_history_first_element()
-        #
+        # получаем номер заказа
         number = element.text
         return number
 

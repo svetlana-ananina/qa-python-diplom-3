@@ -3,8 +3,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver import ActionChains
 
-from helpers.common_helpers import _print_info
-
 
 class BasePage:
     """ Базовый класс для классов страниц - Главной страницы и страницы заказа """
@@ -121,4 +119,13 @@ class BasePage:
         """ Кликаем элемент """
         action = ActionChains(self.driver)
         action.drag_and_drop(source, target).perform()
+
+    @allure.step('Проверяем, что в имени класса появляется текст')
+    def wait_for_text_in_classname(self, locator, text):        # bool
+        return WebDriverWait(self.driver, 10).until(
+            EC.text_to_be_present_in_element_attribute(locator, 'class', text))
+
+    @allure.step('Проверяем что элемент становится невидимым')
+    def wait_for_invisibility_of_element(self, locator):
+        return WebDriverWait(self.driver, 10).until(EC.invisibility_of_element_located(locator))
 

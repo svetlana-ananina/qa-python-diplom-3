@@ -1,8 +1,8 @@
 import allure
 import pytest
 
-from helpers.common_helpers import _sleep, _sleep_ff
-from locators import PROFILE_PAGE_URL, ORDER_HISTORY_URL, LoginPageLocators, LOGIN_PAGE_URL
+from data import Urls
+from locators import LoginPageLocators
 from pages.main_page import MainPage
 from pages.profile_page import ProfilePage
 
@@ -24,7 +24,7 @@ class TestProfilePage:
         self.__open_profile_page_by_link(driver)
 
         # Проверяем что текущий url это url Личного кабинета
-        assert driver.current_url == PROFILE_PAGE_URL
+        assert driver.current_url == Urls.PROFILE_PAGE_URL
 
 
     @allure.title('Проверяем переход в раздел «История заказов»')
@@ -39,8 +39,9 @@ class TestProfilePage:
         # кликаем ссылку История заказов
         profile_page.click_order_history_link()
 
-        # Проверяем что раздел Истории заказов стал активным и текущий url это url Истории заказовS
-        assert profile_page.order_history_is_active() and profile_page.get_current_url() == ORDER_HISTORY_URL
+        # Проверяем что раздел Истории заказов стал активным и текущий url это url Истории заказов
+        assert profile_page.order_history_is_active()
+        assert profile_page.get_current_url() == Urls.ORDER_HISTORY_URL
 
 
     @allure.title('Проверяем выход из аккаунта')
@@ -58,5 +59,5 @@ class TestProfilePage:
         profile_page.wait_for_load_element(LoginPageLocators.LOGIN_BUTTON)
 
         # Проверяем что текущий url это url страницы авторизации
-        assert profile_page.get_current_url() == LOGIN_PAGE_URL
+        assert profile_page.get_current_url() == Urls.LOGIN_PAGE_URL
 

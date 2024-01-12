@@ -1,20 +1,6 @@
 from selenium.webdriver.common.by import By
 
 
-# тестовые данные для функции восстановления пароля
-USER_EMAIL = 'ivanivanov@mail.ru'
-USER_PASSWORD = '123456'
-
-
-FORGOT_PASSWORD_PAGE_URL = 'https://stellarburgers.nomoreparties.site/forgot-password'  # URL страницы восстановления пароля
-LOGIN_PAGE_URL           = 'https://stellarburgers.nomoreparties.site/login'            # URL для страницы авторизации
-RESET_PASSWORD_PAGE_URL  = 'https://stellarburgers.nomoreparties.site/reset-password'   # URL страницы восстановления пароля
-PROFILE_PAGE_URL         = 'https://stellarburgers.nomoreparties.site/account/profile'  # URL для страницы Личный кабинет
-ORDER_HISTORY_URL        = 'https://stellarburgers.nomoreparties.site/account/order-history'  # URL для страницы Личный кабинет
-MAIN_PAGE_URL            = 'https://stellarburgers.nomoreparties.site'                  # URL для Главной страницы
-FEED_PAGE_URL            = 'https://stellarburgers.nomoreparties.site/feed'             # URL для Главной страницы
-
-
 class MainPageLocators:
     ORDER_BUTTON = (By.XPATH, ".//button[text()='Оформить заказ']")         # Кнопка "Оформить заказ" на Главной странице
     LOGIN_BUTTON = (By.XPATH, ".//button[text()='Войти в аккаунт']")        # Кнопка "Войти в аккаунт" на Главной странице
