@@ -29,17 +29,14 @@ def get_browser():
         chrome_service = ChromeService(executable_path='C:/WebDriver/bin/chromedriver.exe')     # WEBDRIVER_PATH
         driver = webdriver.Chrome(service=chrome_service)
 
-        #service = webdriver.ChromeService()
-        #CHROMEDRIVER_PATH = os.getenv('$WEBDRIVER_BIN') +'/chromedriver.exe'
-        #CHROMEDRIVER_PATH = os.getenv('$HOME') +'/chromedriver.exe'
-        #service = webdriver.ChromeService(executable_path=CHROMEDRIVER_PATH)
-        #driver = webdriver.Chrome(service=service)
+        #driver = webdriver.Chrome()
 
         driver.set_window_size(1920, 1080)
         driver.maximize_window()
     else:
         firefox_service = FirefoxService(executable_path='C:/WebDriver/bin/geckodriver.exe')
         driver = webdriver.Firefox(service=firefox_service)
+        #driver = webdriver.Firefox()
         driver.maximize_window()
     yield driver
 

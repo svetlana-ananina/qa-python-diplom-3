@@ -1,6 +1,4 @@
 import allure
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 
 from helpers.common_helpers import _print_info
 from locators import FeedPageLocators
@@ -37,8 +35,6 @@ class FeedPage(ConstructorPage):
             number = item.text
             order_list.append(number)
         return order_list
-
-    #    ORDER_STATUS_BOX_LIST2_ITEM = (By.XPATH, '(.//ul[contains(@class,"OrderFeed_orderList")])[2]/li')
 
     @allure.step('Получаем список элементов страницы с номерами заказов в разделе "В работе"')
     def __get_order_list_in_work(self):

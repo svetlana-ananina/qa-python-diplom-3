@@ -10,13 +10,13 @@ from pages.profile_page import ProfilePage
 
 class TestFeedPage:
 
-    @staticmethod
-    def __create_user_order(driver):
-        # открываем конструктор
-        main_page = ConstructorPage(driver)
-        # оформляем заказ
-        order = main_page.create_order()
-        return order
+    #@staticmethod
+    #def __create_user_order(driver):
+    #    # открываем конструктор
+    #    main_page = ConstructorPage(driver)
+    #    # оформляем заказ
+    #    order = main_page.create_order()
+    #    return order
 
 
     @staticmethod
