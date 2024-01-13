@@ -1,11 +1,41 @@
 import allure
 
-from locators import MainPageLocators
-from pages.main_page import MainPage
+from data import Urls
+from locators import MainPageLocators, ProfilePageLocators
+from pages.base_page import BasePage
 
 
-class ConstructorPage(MainPage):
+class ConstructorPage(BasePage):
 
+    @allure.step('Открываем Главную страницу по url')
+    def open_constructor_page(self):
+        self.open_page(Urls.MAIN_PAGE_URL)
+        self.wait_for_load_element(MainPageLocators.ANY_BUTTON)
+
+    @allure.step('кликаем ссылку "Лента заказов"')
+    def click_feed_link(self):
+        self.click_element_by_locator(MainPageLocators.FEED_LINK)
+
+    @allure.step('Проверяем, что Конструктор становится активным')
+    def constructor_is_active(self):
+        return self.wait_for_text_in_classname(MainPageLocators.CONSTRUCTOR_LINK,
+                                               MainPageLocators.ACTIVE_TEXT)
+
+    @allure.step('кликаем ссылку "Личный кабинет"')
+    def click_profile_link(self):
+        self.click_element_by_locator(MainPageLocators.PROFILE_LINK)
+
+    # def __open_profile_page_by_link(self):
+    @allure.step('Открываем Личный кабинет по ссылке на Главной странице')
+    def open_profile_page_by_link(self):
+        self.open_constructor_page()
+        self.wait_for_load_element(MainPageLocators.ORDER_BUTTON)
+        # кликаем Личный кабинет в хедере
+        self.click_profile_link()
+        # ждем перехода в Личный кабинет и появления кнопки "Сохранить"
+        self.wait_for_load_element(ProfilePageLocators.SAVE_BUTTON)
+
+    #
     @allure.step('кликаем на 1-й ингредиент')
     def click_ingredient_link(self):
         self.click_element_by_locator(MainPageLocators.INGREDIENT_LINK)
@@ -83,9 +113,9 @@ class ConstructorPage(MainPage):
     def get_new_order_number(self):
         return self.wait_for_load_element(MainPageLocators.ORDER_MODAL_ORDER_NUMBER).text
 
-    @allure.step('Создаем заказ')
+    @allure.step('Формируем заказ и кликаем кнопку "Оформить заказ"')
     def _create_order(self):
-        self.open_main_page()
+        self.open_constructor_page()
         # Перемещаем булку в бургер
         self.drag_and_drop_bun()
         # Добавляем соус в заказ
@@ -102,7 +132,7 @@ class ConstructorPage(MainPage):
         self._create_order()
         # ждем чтобы появилось всплывающее окно с деталями заказа
         self.order_details_is_visible()
-        res = self.wait_for_changed_text(MainPageLocators.ORDER_MODAL_ORDER_NUMBER, '9999')
+        self.wait_for_changed_text(MainPageLocators.ORDER_MODAL_ORDER_NUMBER, '9999')
         # получаем номер заказа
         number = self.get_new_order_number()
         # кликаем крестик - кнопку закрытия деталей заказа

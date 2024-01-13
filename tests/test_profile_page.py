@@ -3,17 +3,16 @@ import pytest
 
 from data import Urls
 from locators import LoginPageLocators
-from pages.main_page import MainPage
+from pages.constructor_page import ConstructorPage
 from pages.profile_page import ProfilePage
 
 
 class TestProfilePage:
 
     @allure.step('Открываем Личный кабинет по ссылке на Главной странице')
-    def __open_profile_page_by_link(self, driver):
-        main_page = MainPage(driver)
-        main_page.open_profile_page_by_link()
-        return main_page
+    def __open_profile_page(self, driver):
+        constructor_page = ConstructorPage(driver)
+        constructor_page.open_profile_page_by_link()
 
 
     @allure.title('Проверяем переход по клику на «Личный кабинет»')
@@ -21,7 +20,7 @@ class TestProfilePage:
     def test_profile_link(self, get_browser, create_new_user_by_api, login_new_user):
         # регистрируем нового пользователя и открываем окно веб-браузер
         driver = login_new_user
-        self.__open_profile_page_by_link(driver)
+        self.__open_profile_page(driver)
 
         # Проверяем что текущий url это url Личного кабинета
         assert driver.current_url == Urls.PROFILE_PAGE_URL
@@ -33,7 +32,7 @@ class TestProfilePage:
         # регистрируем нового пользователя и открываем окно веб-браузер
         driver = login_new_user
         # открываем Главную страницу
-        self.__open_profile_page_by_link(driver)
+        self.__open_profile_page(driver)
         # открываем Личный кабинет и ждем появления кнопки "Сохранить"
         profile_page = ProfilePage(driver)
         # кликаем ссылку История заказов
@@ -50,7 +49,7 @@ class TestProfilePage:
         # регистрируем нового пользователя и открываем окно веб-браузер
         driver = login_new_user
         # открываем Главную страницу
-        self.__open_profile_page_by_link(driver)
+        self.__open_profile_page(driver)
         # открываем Личный кабинет и ждем появления кнопки "Сохранить"
         profile_page = ProfilePage(driver)
         # кликаем кнопку Выход

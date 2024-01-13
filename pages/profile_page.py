@@ -1,17 +1,12 @@
 import allure
 
+from helpers.helpers_on_pages import HelpersOnPages
 from locators import ProfilePageLocators
 from pages.base_page import BasePage
-from pages.main_page import MainPage
+from pages.constructor_page import ConstructorPage
 
 
 class ProfilePage(BasePage):
-
-    @allure.step('Открываем Личный кабинет по ссылке на Главной странице')
-    def __open_profile_page_by_link(self):
-        main_page = MainPage(self.driver)
-        main_page.open_profile_page_by_link()
-        return main_page
 
     @allure.step('кликаем ссылку "Личный кабинет"')
     def click_order_history_link(self):
@@ -29,16 +24,19 @@ class ProfilePage(BasePage):
         self.click_element_by_locator(ProfilePageLocators.EXIT_BUTTON)
 
     #
-    # вспомогательная функция для других тестов - get_order_history_list
-    # Получаем список номеров заказов пользователя
+    # вспомогательные функции для других тестов
     @allure.step('Получаем список элементов страницы с номерами заказов')
     def __get_order_history_elements(self):
         return self.wait_for_load_all_elements(ProfilePageLocators.ORDER_HISTORY_ORDER_NUMBER)
 
+    @allure.step('Получаем элемент страницы с номером заказа')
+    def __get_order_history_first_element(self):
+        return self.wait_for_load_element(ProfilePageLocators.ORDER_HISTORY_ORDER_NUMBER)
+
     @allure.step('Получаем список номеров заказов пользователя')
     def get_order_history_list(self):
         # Открываем Личный кабинет по ссылке на Главной странице
-        self.__open_profile_page_by_link()
+        HelpersOnPages.open_profile_page(self.driver)
         # кликаем ссылку История заказов
         self.click_order_history_link()
         # получаем элементы списка с номерами заказов
@@ -49,17 +47,10 @@ class ProfilePage(BasePage):
             order_list.append(item.text)
         return order_list
 
-    #
-    # вспомогательная функция для других тестов - get_order_from_order_history
-    # Получаем номер последнего заказа пользователя
-    @allure.step('Получаем элемент страницы с номером заказа')
-    def __get_order_history_first_element(self):
-        return self.wait_for_load_element(ProfilePageLocators.ORDER_HISTORY_ORDER_NUMBER)
-
     @allure.step('Получаем номер последнего заказа пользователя')
     def get_order_from_order_history(self):
         # Открываем Личный кабинет по ссылке на Главной странице
-        self.__open_profile_page_by_link()
+        HelpersOnPages.open_profile_page(self.driver)
         # кликаем ссылку История заказов
         self.click_order_history_link()
         # получаем 1-й элемент списка с номерами заказов

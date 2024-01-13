@@ -1,20 +1,17 @@
-import os
-
 import allure
 import pytest
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.chrome.service import Service as ChromeService
 
-import pathlib
-from pathlib import Path
-
 from data import _browser, RESPONSE_KEYS
-from helpers.helpers_on_register_user import generate_random_user_data, try_to_create_user, try_to_delete_user
+from helpers.helpers_on_register_user import HelpersOnRegisterUser as u
 from locators import MainPageLocators
+from pages.constructor_page import ConstructorPage
 from pages.login_page import LoginPage
 
-from helpers.common_helpers import _print_info, _sleep_ff
+from helpers.common_helpers import print_info, sleep_ff
+from pages.profile_page import ProfilePage
 
 
 #
@@ -25,6 +22,7 @@ from helpers.common_helpers import _print_info, _sleep_ff
 @pytest.fixture
 def get_browser():
     """ Открываем окно веб-драйвера """
+    print_info('\nget_browser: открываем окно браузера ...')
     if _browser == 'Chrome':
         chrome_service = ChromeService(executable_path='C:/WebDriver/bin/chromedriver.exe')     # WEBDRIVER_PATH
         driver = webdriver.Chrome(service=chrome_service)
@@ -47,6 +45,7 @@ def get_browser():
 @allure.title('Создаем нового пользователя через API и авторизуемся на сайте')
 @pytest.fixture
 def login_new_user(get_browser, create_new_user_by_api):
+    print_info('\nlogin_new_user: регистрируем нового пользователя ...')
     # регистрируем нового пользователя
     user_data = create_new_user_by_api
     email = user_data['email']
@@ -65,6 +64,18 @@ def login_new_user(get_browser, create_new_user_by_api):
     login_page.wait_for_load_element(MainPageLocators.ORDER_BUTTON)
     return driver
 
+@allure.title('Создаем заказ для авторизованного пользователя')
+@pytest.fixture
+def create_order(get_browser, create_new_user_by_api, login_new_user):
+    print_info('\ncreate_order: Создаем заказ ...')
+    # Открываем окно веб-браузер
+    driver = get_browser
+    # открываем конструктор
+    constructor_page = ConstructorPage(driver)
+    # оформляем заказ
+    order = constructor_page.create_order()
+    return order
+
 
 #
 # Функции для работы с API
@@ -76,14 +87,14 @@ def create_new_user_by_api():
     Вспомогательный метод создания и удаления нового пользователя с помощью API
     """
     # генерируем уникальные данные нового пользователя
-    user_data = generate_random_user_data()
+    user_data = u.generate_random_user_data()
     # отправляем запрос на создание пользователя
-    response = try_to_create_user(user_data)
+    response = u.try_to_create_user(user_data)
     # получаем токены пользователя
     received_body = response.json()
     auth_token = received_body[RESPONSE_KEYS.ACCESS_TOKEN]
     yield user_data
 
     # удаляем пользователя
-    try_to_delete_user(auth_token)
+    u.try_to_delete_user(auth_token)
 

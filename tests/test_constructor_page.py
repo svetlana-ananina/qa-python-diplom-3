@@ -4,7 +4,6 @@ import pytest
 from data import Urls
 from locators import MainPageLocators
 from pages.constructor_page import ConstructorPage
-from pages.main_page import MainPage
 
 
 class TestConstructorPage:
@@ -27,47 +26,47 @@ class TestConstructorPage:
     @allure.title('Проверяем переход по клику на «Лента заказов»')
     def test_open_feed_by_link(self, get_browser):
         driver = get_browser
-        main_page = ConstructorPage(driver)
+        constructor_page = ConstructorPage(driver)
         # Открываем Конструктор
-        main_page.open_main_page()
-        # кликаем ссылку "Конструктор" в хедере
-        main_page.click_feed_link()
-        # ждем перехода на вкладку "Конструктор" и появления кнопки "Войти в аккаунт"
-        main_page.wait_for_load_element(MainPageLocators.TOTAL_TODAY)
+        constructor_page.open_constructor_page()
+        # кликаем ссылку "Лента заказов" в хедере
+        constructor_page.click_feed_link()
+        # ждем перехода на вкладку "Лента заказов" и появления счетчика "Выполнено сегодня"
+        constructor_page.wait_for_load_element(MainPageLocators.TOTAL_TODAY)
 
         # Проверяем что текущий url это url Ленты заказов
-        assert main_page.feed_is_active() and main_page.get_current_url() == Urls.FEED_PAGE_URL
+        assert constructor_page.feed_is_active() and constructor_page.get_current_url() == Urls.FEED_PAGE_URL
 
 
     @allure.title('Проверяем, что если кликнуть на ингредиент, появится всплывающее окно с деталями')
     def test_click_ingredient(self, get_browser):
         driver = get_browser
-        main_page = ConstructorPage(driver)
+        constructor_page = ConstructorPage(driver)
         # Открываем Конструктор
-        main_page.open_main_page()
+        constructor_page.open_constructor_page()
         # кликаем на 1-й ингредиент
-        main_page.click_ingredient_link()
+        constructor_page.click_ingredient_link()
         # ждем что открывается карточка деталей
-        main_page.ingredient_details_is_opened()
+        constructor_page.ingredient_details_is_opened()
 
         # Проверяем что появился заголовок Детали ингредиента
-        assert main_page.details_title_is_visible()
+        assert constructor_page.details_title_is_visible()
 
 
     @allure.title('Проверяем, что всплывающее окно закрывается кликом по крестику')
     def test_close_ingredient_details(self, get_browser):
         driver = get_browser
-        main_page = ConstructorPage(driver)
+        constructor_page = ConstructorPage(driver)
         # Открываем Конструктор
-        main_page.open_main_page()
+        constructor_page.open_constructor_page()
         # кликаем на 1-й ингредиент
-        main_page.click_ingredient_link()
+        constructor_page.click_ingredient_link()
         # ждем, что открывается карточка деталей и получаем элемент с изменившимся классом: (By.XPATH, './/section[contains(@class,"Modal_modal_opened")]')
-        element = main_page.ingredient_details_is_opened()
+        element = constructor_page.ingredient_details_is_opened()
         # кликаем на крестик
-        main_page.click_details_close_link()
+        constructor_page.click_details_close_link()
         # ждем пока закроется модальное окно
-        main_page.ingredient_details_is_closed()
+        constructor_page.ingredient_details_is_closed()
 
         # проверяем что модальное окно с деталями заказа закрылось
         assert element.get_attribute('class') == MainPageLocators.DETAILS_LINK_CLASS
@@ -76,15 +75,15 @@ class TestConstructorPage:
     @allure.title('Проверяем, что при добавлении ингредиента в заказ счётчик этого ингридиента увеличивается')
     def test_append_ingredient_in_order(self, get_browser):
         driver = get_browser
-        main_page = ConstructorPage(driver)
+        constructor_page = ConstructorPage(driver)
         # Открываем Конструктор
-        main_page.open_main_page()
+        constructor_page.open_constructor_page()
         # получаем значение счетчика до
-        counter_before = main_page.get_buns_counter()
+        counter_before = constructor_page.get_buns_counter()
         # Перемещаем булку в бургер
-        main_page.drag_and_drop_bun()
+        constructor_page.drag_and_drop_bun()
         # получаем значение счетчика после добавления ингредиента
-        counter_after = main_page.get_buns_counter()
+        counter_after = constructor_page.get_buns_counter()
 
         # Проверяем, что счетчик ингредиента увеличивается
         assert counter_after > counter_before
@@ -95,10 +94,10 @@ class TestConstructorPage:
         # регистрируем нового пользователя и открываем окно веб-браузера
         driver = login_new_user
         # открываем Главную страницу
-        main_page = ConstructorPage(driver)
+        constructor_page = ConstructorPage(driver)
         # оформляем заказ
-        main_page._create_order()
+        constructor_page._create_order()
 
         # проверяем, что появилось модальное окно с деталями заказа
-        assert main_page.order_details_is_visible()
+        assert constructor_page.order_details_is_visible()
 

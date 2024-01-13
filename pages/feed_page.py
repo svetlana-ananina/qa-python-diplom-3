@@ -1,15 +1,26 @@
 import allure
 
-from helpers.common_helpers import _print_info
-from locators import FeedPageLocators
+from data import Urls
+from helpers.common_helpers import print_info
+from locators import FeedPageLocators, MainPageLocators
 from pages.constructor_page import ConstructorPage
 
 
 class FeedPage(ConstructorPage):
 
-    @allure.step('Открываем Ленту заказов по ссылке на Главной странице')
-    def open_feed_page_by_link(self):
-        self.open_feed_page()
+    @allure.step('Открываем Ленту заказов')
+    def open_feed_page(self):
+        self.open_page(Urls.FEED_PAGE_URL)
+        self.wait_for_load_element(MainPageLocators.TOTAL_TODAY)
+
+    @allure.step('кликаем ссылку "Конструктор"')
+    def click_constructor_link(self):
+        self.click_element_by_locator(MainPageLocators.CONSTRUCTOR_LINK)
+
+    @allure.step('Проверяем, что Лента заказов становится активным')
+    def feed_is_active(self):
+        return self.wait_for_text_in_classname(MainPageLocators.FEED_LINK,
+                                               MainPageLocators.ACTIVE_TEXT)
 
     @allure.step('кликаем на 1-й заказ')
     def click_order_link(self):
@@ -26,7 +37,7 @@ class FeedPage(ConstructorPage):
     @allure.step('Получаем список номеров заказов в Ленте заказов')
     def get_order_number_list(self):
         # Открываем Ленту заказов по ссылке на Главной странице
-        self.open_feed_page_by_link()
+        self.open_feed_page()
         # получаем элементы списка с номерами заказов
         elements = self.__get_order_number_list_elements()
         #
@@ -63,7 +74,7 @@ class FeedPage(ConstructorPage):
         elements = self.__get_orders_total()
         return int(str(elements[0].text))
 
-    @allure.step('Получаем счетчик "Выполнено за всё время"')
+    @allure.step('Получаем счетчик "Выполнено сегодня"')
     def get_orders_today(self):
         elements = self.__get_orders_total()
         return int(str(elements[1].text))
