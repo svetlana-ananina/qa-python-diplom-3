@@ -1,9 +1,7 @@
 import allure
-import pytest
 import random
 import string
 
-from helpers.common_helpers import _print_info
 from helpers.helpers_on_requests import HelpersOnRequests as hr
 
 
@@ -19,9 +17,9 @@ class HelpersOnRegisterUser:
         name = HelpersOnRegisterUser.generate_random_string(10)
         # собираем тело запроса
         user_data = {
-            'email': email,  # "email"
-            'password': password,  # "password"
-            'name': name  # "name"
+            'email': email,         # "email"
+            'password': password,   # "password"
+            'name': name            # "name"
         }
         # возвращаем словарь
         return user_data

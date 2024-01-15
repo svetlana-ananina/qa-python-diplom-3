@@ -1,6 +1,4 @@
 import allure
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 
 from data import Urls
 from locators import LoginPageLocators

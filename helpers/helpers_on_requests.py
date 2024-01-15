@@ -1,14 +1,6 @@
 import allure
 import requests
 
-from data import _to_print
-from helpers.common_helpers import print_info
-
-
-def _print_response(response):
-    if _to_print:
-        print(f'response="{response}", response.text="{response.text}"')
-
 
 class ApiData:
     # URL-адрес сервера
@@ -25,18 +17,14 @@ class HelpersOnRequests:
     @staticmethod
     @allure.step('Отправляем API-запрос на создание пользователя')
     def request_on_create_user(payload):
-        print_info('\nrequest_on_create_user: Отправляем API-запрос на создание пользователя ...')
         request_url = f'{ApiData.SERVER_URL}{ApiData.API_CREATE_USER}'
         response = requests.post(f'{request_url}', json=payload)
-        _print_response(response)
         return response
 
     @staticmethod
     @allure.step('Отправляем API-запрос на удаление пользователя')
     def request_on_delete_user(headers):
-        print_info('\nrequest_on_delete_user: Отправляем API-запрос на удаление пользователя ...')
         request_url = f'{ApiData.SERVER_URL}{ApiData.API_DELETE_USER}'
         response = requests.delete(f'{request_url}', headers=headers)
-        _print_response(response)
         return response
 

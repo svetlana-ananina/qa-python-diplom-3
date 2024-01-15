@@ -1,5 +1,4 @@
 import allure
-import pytest
 
 from data import Urls
 from locators import LoginPageLocators
@@ -20,7 +19,9 @@ class TestProfilePage:
     def test_profile_link(self, get_browser, create_new_user_by_api, login_new_user):
         # регистрируем нового пользователя и открываем окно веб-браузер
         driver = login_new_user
-        self.__open_profile_page(driver)
+        # открываем Личный кабинет по ссылке с Главной страницы
+        profile_page = ProfilePage(driver)
+        profile_page.open_profile_page()
 
         # Проверяем что текущий url это url Личного кабинета
         assert driver.current_url == Urls.PROFILE_PAGE_URL
@@ -31,10 +32,9 @@ class TestProfilePage:
     def test_order_history_link(self, get_browser, create_new_user_by_api, login_new_user):
         # регистрируем нового пользователя и открываем окно веб-браузер
         driver = login_new_user
-        # открываем Главную страницу
-        self.__open_profile_page(driver)
-        # открываем Личный кабинет и ждем появления кнопки "Сохранить"
+        # открываем Личный кабинет по ссылке с Главной страницы
         profile_page = ProfilePage(driver)
+        profile_page.open_profile_page()
         # кликаем ссылку История заказов
         profile_page.click_order_history_link()
 
@@ -48,10 +48,9 @@ class TestProfilePage:
     def test_exit_button(self, get_browser, create_new_user_by_api, login_new_user):
         # регистрируем нового пользователя и открываем окно веб-браузер
         driver = login_new_user
-        # открываем Главную страницу
-        self.__open_profile_page(driver)
-        # открываем Личный кабинет и ждем появления кнопки "Сохранить"
+        # открываем Личный кабинет по ссылке с Главной страницы
         profile_page = ProfilePage(driver)
+        profile_page.open_profile_page()
         # кликаем кнопку Выход
         profile_page.click_exit_button()
         # ждем что произошел переход на страницу авторизации

@@ -10,9 +10,30 @@ from locators import MainPageLocators
 from pages.constructor_page import ConstructorPage
 from pages.login_page import LoginPage
 
-from helpers.common_helpers import print_info, sleep_ff
-from pages.profile_page import ProfilePage
 
+import time
+from data import _to_print, _to_sleep, _to_sleep_ff
+
+
+# Логирование - вывод в <stdout>
+def print_value(name, value):
+    if _to_print:
+        print(f'{name}="{value}"')
+
+
+def print_info(info_str):
+    if _to_print:
+        print(info_str)
+
+
+def sleep(amount=10):
+    if _to_sleep:
+        time.sleep(amount)
+
+
+def sleep_ff(amount=10):
+    if _to_sleep_ff:
+        time.sleep(amount)
 
 #
 # Функции для работы с WebDriver
@@ -55,7 +76,6 @@ def login_new_user(get_browser, create_new_user_by_api):
     # открываем страницу авторизации
     login_page = LoginPage(driver)
     login_page.open_login_page()
-    #login_page.wait_open_login_page()
     # Вводим email и пароль
     login_page.enter_user_data(email, password)
     # кликаем кнопку "Войти"
@@ -63,6 +83,7 @@ def login_new_user(get_browser, create_new_user_by_api):
     # ждем появления кнопки "Оформить заказ" на Главной странице
     login_page.wait_for_load_element(MainPageLocators.ORDER_BUTTON)
     return driver
+
 
 @allure.title('Создаем заказ для авторизованного пользователя')
 @pytest.fixture

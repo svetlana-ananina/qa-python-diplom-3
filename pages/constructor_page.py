@@ -12,20 +12,19 @@ class ConstructorPage(BasePage):
         self.open_page(Urls.MAIN_PAGE_URL)
         self.wait_for_load_element(MainPageLocators.ANY_BUTTON)
 
-    @allure.step('кликаем ссылку "Лента заказов"')
+    @allure.step('Кликаем ссылку "Лента заказов"')
     def click_feed_link(self):
         self.click_element_by_locator(MainPageLocators.FEED_LINK)
 
-    @allure.step('Проверяем, что Конструктор становится активным')
+    @allure.step('Ждем, что раздел Конструктор становится активным')
     def constructor_is_active(self):
         return self.wait_for_text_in_classname(MainPageLocators.CONSTRUCTOR_LINK,
                                                MainPageLocators.ACTIVE_TEXT)
 
-    @allure.step('кликаем ссылку "Личный кабинет"')
+    @allure.step('Кликаем ссылку "Личный кабинет"')
     def click_profile_link(self):
         self.click_element_by_locator(MainPageLocators.PROFILE_LINK)
 
-    # def __open_profile_page_by_link(self):
     @allure.step('Открываем Личный кабинет по ссылке на Главной странице')
     def open_profile_page_by_link(self):
         self.open_constructor_page()
@@ -36,7 +35,7 @@ class ConstructorPage(BasePage):
         self.wait_for_load_element(ProfilePageLocators.SAVE_BUTTON)
 
     #
-    @allure.step('кликаем на 1-й ингредиент')
+    @allure.step('Кликаем на 1-й ингредиент')
     def click_ingredient_link(self):
         self.click_element_by_locator(MainPageLocators.INGREDIENT_LINK)
 
@@ -48,11 +47,11 @@ class ConstructorPage(BasePage):
     def details_title_is_visible(self):
         return self.wait_for_load_element(MainPageLocators.DETAILS_TITLE_LINK)
 
-    @allure.step('кликаем на крестик')
+    @allure.step('Кликаем на крестик')
     def click_details_close_link(self):
         self.click_element_by_locator(MainPageLocators.DETAILS_CLOSE_LINK)
 
-    @allure.step('кликаем на крестик')
+    @allure.step('Кликаем на крестик')
     def click_details_close_link(self):
         self.click_element_by_locator(MainPageLocators.DETAILS_CLOSE_LINK)
 
@@ -104,10 +103,9 @@ class ConstructorPage(BasePage):
         """ Ждем загрузку элемента HTML по локатору и кликаем """
         self.click_element_by_locator(MainPageLocators.ORDER_BUTTON)
 
-    @allure.step('Проверяем, что появилось всплывающее окно с деталями заказа')
+    @allure.step('Ждем, что появилось всплывающее окно с деталями заказа')
     def order_details_is_visible(self):
         return self.wait_for_load_element(MainPageLocators.ORDER_MODAL_OPENED_LINK)
-
 
     @allure.step('Получаем номер заказа')
     def get_new_order_number(self):
@@ -125,7 +123,6 @@ class ConstructorPage(BasePage):
         # кликаем кнопку Оформить заказ
         self.click_order_button()
 
-
     # вспомогательная функция для других тестов
     @allure.step('Создаем заказ и получаем его номер')
     def create_order(self):
@@ -137,5 +134,5 @@ class ConstructorPage(BasePage):
         number = self.get_new_order_number()
         # кликаем крестик - кнопку закрытия деталей заказа
         self.click_element_by_locator(MainPageLocators.ORDER_CLOSE_BUTTON)
-        return number
+        return str(number)
 

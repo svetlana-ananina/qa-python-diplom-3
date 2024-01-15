@@ -1,12 +1,16 @@
 import allure
 
-from helpers.helpers_on_pages import HelpersOnPages
 from locators import ProfilePageLocators
 from pages.base_page import BasePage
 from pages.constructor_page import ConstructorPage
 
 
 class ProfilePage(BasePage):
+
+    @allure.step('Открываем Личный кабинет по ссылке на Главной странице')
+    def open_profile_page(self):
+        constructor_page = ConstructorPage(self.driver)
+        constructor_page.open_profile_page_by_link()
 
     @allure.step('кликаем ссылку "Личный кабинет"')
     def click_order_history_link(self):
@@ -36,7 +40,7 @@ class ProfilePage(BasePage):
     @allure.step('Получаем список номеров заказов пользователя')
     def get_order_history_list(self):
         # Открываем Личный кабинет по ссылке на Главной странице
-        HelpersOnPages.open_profile_page(self.driver)
+        self.open_profile_page()
         # кликаем ссылку История заказов
         self.click_order_history_link()
         # получаем элементы списка с номерами заказов
@@ -50,7 +54,7 @@ class ProfilePage(BasePage):
     @allure.step('Получаем номер последнего заказа пользователя')
     def get_order_from_order_history(self):
         # Открываем Личный кабинет по ссылке на Главной странице
-        HelpersOnPages.open_profile_page(self.driver)
+        self.open_profile_page()
         # кликаем ссылку История заказов
         self.click_order_history_link()
         # получаем 1-й элемент списка с номерами заказов

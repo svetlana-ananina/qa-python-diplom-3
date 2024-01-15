@@ -1,9 +1,9 @@
 import allure
-import pytest
 
 from data import Urls
 from locators import MainPageLocators
 from pages.constructor_page import ConstructorPage
+from pages.feed_page import FeedPage
 
 
 class TestConstructorPage:
@@ -11,16 +11,18 @@ class TestConstructorPage:
     @allure.title('Проверяем переход по клику на «Конструктор»')
     def test_open_constructor_by_link(self, get_browser):
         driver = get_browser
-        main_page = ConstructorPage(driver)
         # Открываем Ленту заказов
-        main_page.open_feed_page()
+        feed_page = FeedPage(driver)
+        feed_page.open_feed_page()
         # кликаем ссылку "Конструктор" в хедере
-        main_page.click_constructor_link()
+        feed_page.click_constructor_link()
         # ждем перехода на вкладку "Конструктор" и появления кнопки "Войти в аккаунт"
-        main_page.wait_for_load_element(MainPageLocators.LOGIN_BUTTON)
+        constructor_page = ConstructorPage(driver)
+        constructor_page.wait_for_load_element(MainPageLocators.LOGIN_BUTTON)
 
         # Проверяем что текущий url это url Главной страницы
-        assert main_page.constructor_is_active() and main_page.get_current_url() == Urls.MAIN_PAGE_URL+'/'
+        assert constructor_page.constructor_is_active()
+        assert constructor_page.get_current_url() == Urls.MAIN_PAGE_URL+'/'
 
 
     @allure.title('Проверяем переход по клику на «Лента заказов»')
@@ -32,10 +34,12 @@ class TestConstructorPage:
         # кликаем ссылку "Лента заказов" в хедере
         constructor_page.click_feed_link()
         # ждем перехода на вкладку "Лента заказов" и появления счетчика "Выполнено сегодня"
-        constructor_page.wait_for_load_element(MainPageLocators.TOTAL_TODAY)
+        feed_page = FeedPage(driver)
+        feed_page.wait_for_load_element(MainPageLocators.TOTAL_TODAY)
 
         # Проверяем что текущий url это url Ленты заказов
-        assert constructor_page.feed_is_active() and constructor_page.get_current_url() == Urls.FEED_PAGE_URL
+        assert feed_page.feed_is_active()
+        assert feed_page.get_current_url() == Urls.FEED_PAGE_URL
 
 
     @allure.title('Проверяем, что если кликнуть на ингредиент, появится всплывающее окно с деталями')

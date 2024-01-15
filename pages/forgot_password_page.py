@@ -1,7 +1,7 @@
 import allure
 
-from helpers.common_helpers import _sleep_ff
-from locators import ForgotPasswordPageLocators, FORGOT_PASSWORD_PAGE_URL, ResetPasswordPageLocators
+from data import Urls
+from locators import ForgotPasswordPageLocators, ResetPasswordPageLocators
 from pages.base_page import BasePage
 
 
@@ -10,7 +10,7 @@ class ForgotPasswordPage(BasePage):
     @allure.step('Открываем страницу восстановления пароля')
     def open_forgot_password_page(self):
         # Открываем страницу авторизации
-        return self.open_page(FORGOT_PASSWORD_PAGE_URL)
+        return self.open_page(Urls.FORGOT_PASSWORD_PAGE_URL)
 
     @allure.step('Ждем загрузку и кликаем ссылку "Восстановить пароль"')
     def scroll_to_click_email_field(self):
@@ -19,7 +19,6 @@ class ForgotPasswordPage(BasePage):
         # прокручиваем страницу до кнопки "Восстановить"
         self.scroll_to_element_by_locator(ForgotPasswordPageLocators.RECOVER_BUTTON)
         # Кликаем по полю "email"
-        _sleep_ff(5)
         self.click_element_by_locator_when_clickable(ForgotPasswordPageLocators.EMAIL_FIELD)
 
     @allure.step('Открываем страницу восстановления пароля, вводим почту и кликаем кнопку "Восстановить"')

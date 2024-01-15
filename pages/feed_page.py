@@ -1,12 +1,11 @@
 import allure
 
 from data import Urls
-from helpers.common_helpers import print_info
 from locators import FeedPageLocators, MainPageLocators
-from pages.constructor_page import ConstructorPage
+from pages.base_page import BasePage
 
 
-class FeedPage(ConstructorPage):
+class FeedPage(BasePage):
 
     @allure.step('Открываем Ленту заказов')
     def open_feed_page(self):
