@@ -98,7 +98,7 @@ class ConstructorPage(BasePage):
         target = self.wait_for_load_element(MainPageLocators.DRAGNDROP_BURGER_TARGET)
         self.drag_and_drop(source, target)
 
-    @allure.step('Ждем видимости элемента по локатору и кликаем')
+    @allure.step('Кликаем кнопку Оформить заказ')
     def click_order_button(self):
         """ Ждем загрузку элемента HTML по локатору и кликаем """
         self.click_element_by_locator(MainPageLocators.ORDER_BUTTON)
